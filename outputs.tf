@@ -25,11 +25,3 @@ output "cf_hosted_zone_id" {
 output "cf_origin_access_identity" {
   value = "${aws_cloudfront_origin_access_identity.default.cloudfront_access_identity_path}"
 }
-
-output "s3_bucket" {
-  value = "${null_resource.default.bucket}"
-}
-
-output "s3_bucket_domain_name" {
-  value = "${null_resource.default.bucket_domain_name}"
-}

@@ -1,5 +1,7 @@
 variable "name" {}
+
 variable "namespace" {}
+
 variable "stage" {}
 
 variable "tags" {
@@ -52,7 +54,7 @@ variable "origin_protocol_policy" {
 variable "origin_ssl_protocols" {
   description = "(Required) - The SSL/TLS protocols that you want CloudFront to use when communicating with your origin over HTTPS"
   type        = "list"
-  default     = ["SSLv3", "TLSv1", "TLSv1.1", "TLSv1.2"]
+  default     = ["TLSv1", "TLSv1.1", "TLSv1.2"]
 }
 
 variable "origin_keepalive_timeout" {
@@ -66,7 +68,7 @@ variable "origin_read_timeout" {
 }
 
 variable "compress" {
-  description = "(Optional) - Whether you want CloudFront to automatically compress content for web requests that include Accept-Encoding: gzip in the request header (default: false)"
+  description = "(Optional) Whether you want CloudFront to automatically compress content for web requests that include Accept-Encoding: gzip in the request header (default: false)"
   default     = "false"
 }
 

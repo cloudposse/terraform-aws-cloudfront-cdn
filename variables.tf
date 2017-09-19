@@ -54,7 +54,7 @@ variable "origin_protocol_policy" {
 variable "origin_ssl_protocols" {
   description = "(Required) - The SSL/TLS protocols that you want CloudFront to use when communicating with your origin over HTTPS"
   type        = "list"
-  default     = ["SSLv3", "TLSv1", "TLSv1.1", "TLSv1.2"]
+  default     = ["TLSv1", "TLSv1.1", "TLSv1.2"]
 }
 
 variable "origin_keepalive_timeout" {

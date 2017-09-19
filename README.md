@@ -61,10 +61,10 @@ aws acm request-certificate --domain-name example.com --subject-alternative-name
 | `origin_domain_name`           | ``                                | The DNS domain name of your custom origin (e.g. website)                                                                        | Yes      |
 | `origin_http_port`             | `80`                              | The HTTP port the custom origin listens on                                                                                      | No       |
 | `origin_https_port`            | `443`                             | The HTTPS port the custom origin listens on                                                                                     | No       |
-| `origin_keepalive_timeout`     | `60`                              | The Custom KeepAlive timeout, in seconds                                                                                        | No       |
+| `origin_keepalive_timeout`     | `60`                              | The Custom KeepAlive timeout, in seconds. By default, AWS enforces a limit of 60. But you can request an increase               | No       |
 | `origin_protocol_policy`       | `match-viewer`                    | The origin protocol policy to apply to your origin. One of `http-only`, `https-only`, or `match-viewer`                         | No       |
-| `origin_read_timeout`          | `60`                              | The Custom Read timeout, in seconds                                                                                             | No       |
-| `origin_ssl_protocols`         | `["TLSv1", "TLSv1.1", "TLSv1.2"]` | The Custom Read timeout, in seconds                                                                                             | No       |
+| `origin_read_timeout`          | `60`                              | The Custom Read timeout, in seconds. By default, AWS enforces a limit of 60. But you can request an increase                    | No       |
+| `origin_ssl_protocols`         | `["TLSv1", "TLSv1.1", "TLSv1.2"]` | The SSL/TLS protocols that you want CloudFront to use when communicating with your origin over HTTPS                            | No       |
 | `parent_zone_id`               | ``                                | ID of the hosted zone to contain this record  (or specify `parent_zone_name`)                                                   | Yes      |
 | `parent_zone_name`             | ``                                | Name of the hosted zone to contain this record (or specify `parent_zone_id`)                                                    | Yes      |
 

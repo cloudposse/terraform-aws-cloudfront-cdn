@@ -63,12 +63,12 @@ variable "origin_keepalive_timeout" {
 }
 
 variable "origin_read_timeout" {
-  description = "(Optional) - The Custom Read timeout, in seconds. By default, AWS enforces a limit of 60. But you can request an increase."
+  description = "(Optional) The Custom Read timeout, in seconds. By default, AWS enforces a limit of 60. But you can request an increase."
   default     = "60"
 }
 
 variable "compress" {
-  description = "(Optional) - Whether you want CloudFront to automatically compress content for web requests that include Accept-Encoding: gzip in the request header (default: false)"
+  description = "(Optional) Whether you want CloudFront to automatically compress content for web requests that include Accept-Encoding: gzip in the request header (default: false)"
   default     = "false"
 }
 

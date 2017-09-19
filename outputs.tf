@@ -6,6 +6,10 @@ output "cf_arn" {
   value = "${aws_cloudfront_distribution.default.arn}"
 }
 
+output "cf_aliases" {
+  value = "${aws_cloudfront_distribution.default.aliases}"
+}
+
 output "cf_status" {
   value = "${aws_cloudfront_distribution.default.status}"
 }

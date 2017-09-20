@@ -8,13 +8,14 @@ If you need to accelerate an S3 bucket, we suggest using [`tf_cdn_s3`](https://g
 
 ```terraform
 module "cdn" {
-  source           = "git::https://github.com/cloudposse/tf_cdn.git?ref=master"
-  namespace        = "${var.namespace}"
-  stage            = "${var.stage}"
-  name             = "${var.name}"
-  aliases          = "${var.aliases}"
-  parent_zone_id   = "${var.parent_zone_id}"
-  parent_zone_name = "${var.parent_zone_name}"
+  source             = "git::https://github.com/cloudposse/tf_cdn.git?ref=master"
+  namespace          = "${var.namespace}"
+  stage              = "${var.stage}"
+  name               = "${var.name}"
+  aliases            = "${var.aliases}"
+  parent_zone_id     = "${var.parent_zone_id}"
+  parent_zone_name   = "${var.parent_zone_name}"
+  origin_domain_name = "${var.origin_domain_name}"
 }
 ```
 ### Generating ACM Certificate
@@ -35,7 +36,7 @@ aws acm request-certificate --domain-name example.com --subject-alternative-name
 | `attributes`                   | `[]`                              | Additional attributes (e.g. `policy` or `role`)                                                                                 | No       |
 | `tags`                         | `{}`                              | Additional tags  (e.g. `map("BusinessUnit","XYZ")`                                                                              | No       |
 | `acm_certificate_arn`          | ``                                | Existing ACM Certificate ARN                                                                                                    | No       |
-| `aliases`                      | ``                                | List of aliases                                                                                                                 | Yes      |
+| `aliases`                      | `[]`                              | List of aliases. CAUTION! Names MUSTN'T contain trailing `.`                                                                    | Yes      |
 | `allowed_methods`              | `["*"]`                           | List of allowed methods (e.g. ` GET, PUT, POST, DELETE, HEAD`) for AWS CloudFront                                               | No       |
 | `cached_methods`               | `["GET", "HEAD"]`                 | List of cached methods (e.g. ` GET, PUT, POST, DELETE, HEAD`)                                                                   | No       |
 | `comment`                      | `Managed by Terraform`            | Comment for the origin access identity                                                                                          | No       |

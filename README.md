@@ -2,13 +2,13 @@
 
 Terraform Module that implements a CloudFront Distribution (CDN) for a custom origin (e.g. website) and [ships logs to a bucket](https://github.com/cloudposse/terraform-aws-log-storage). 
 
-If you need to accelerate an S3 bucket, we suggest using [`tf_cdn_s3`](https://github.com/cloudposse/terraform-cloudfront-s3-cdn) instead.
+If you need to accelerate an S3 bucket, we suggest using [`terraform-aws-cloudfront-s3-cdn`](https://github.com/cloudposse/terraform-aws-cloudfront-s3-cdn) instead.
 
 ## Usage
 
 ```hcl
 module "cdn" {
-  source             = "git::https://github.com/cloudposse/tf_cdn.git?ref=master"
+  source             = "git::https://github.com/cloudposse/terraform-aws-cloudfront-cdn.git?ref=master"
   namespace          = "${var.namespace}"
   stage              = "${var.stage}"
   name               = "${var.name}"

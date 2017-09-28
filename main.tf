@@ -4,7 +4,7 @@ module "origin_label" {
   stage      = "${var.stage}"
   name       = "${var.name}"
   delimiter  = "${var.delimiter}"
-  attributes = "${compact(concat(var.attributes, list("origin")))}"
+  attributes = ["${compact(concat(var.attributes, list("origin")))}"]
   tags       = "${var.tags}"
 }
 
@@ -18,7 +18,7 @@ module "logs" {
   stage                    = "${var.stage}"
   name                     = "${var.name}"
   delimiter                = "${var.delimiter}"
-  attributes               = "${compact(concat(var.attributes, list("origin", "logs")))}"
+  attributes               = ["${compact(concat(var.attributes, list("origin", "logs")))}"]
   tags                     = "${var.tags}"
   prefix                   = "${var.log_prefix}"
   standard_transition_days = "${var.log_standard_transition_days}"

@@ -37,6 +37,7 @@ aws acm request-certificate --domain-name example.com --subject-alternative-name
 | `tags`                         | `{}`                              | Additional tags  (e.g. `map("BusinessUnit","XYZ")`                                                                              | No       |
 | `acm_certificate_arn`          | ``                                | Existing ACM Certificate ARN                                                                                                    | No       |
 | `aliases`                      | `[]`                              | List of aliases. CAUTION! Names MUSTN'T contain trailing `.`                                                                    | Yes      |
+| `custom_error_response`        | `[]`                              | List of one or more custom error response element maps                                                                          | No       |
 | `allowed_methods`              | `["*"]`                           | List of allowed methods (e.g. ` GET, PUT, POST, DELETE, HEAD`) for AWS CloudFront                                               | No       |
 | `cached_methods`               | `["GET", "HEAD"]`                 | List of cached methods (e.g. ` GET, PUT, POST, DELETE, HEAD`)                                                                   | No       |
 | `comment`                      | `Managed by Terraform`            | Comment for the origin access identity                                                                                          | No       |

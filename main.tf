@@ -51,6 +51,8 @@ resource "aws_cloudfront_distribution" "default" {
 
   aliases = ["${var.aliases}"]
 
+  custom_error_response = ["${var.custom_error_response}"]
+
   origin {
     domain_name = "${var.origin_domain_name}"
     origin_id   = "${module.distribution_label.id}"

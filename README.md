@@ -45,6 +45,7 @@ aws acm request-certificate --domain-name example.com --subject-alternative-name
 | `default_root_object`          | `index.html`                      | Object that CloudFront return when requests the root URL                                                                        | No       |
 | `enabled`                      | `true`                            | State of CloudFront                                                                                                             | No       |
 | `forward_cookies`              | `none`                            | Forward cookies to the origin that is associated with this cache behavior                                                       | No       |
+| `forward_headers`              | `[]`                              | Specify headers that you want CloudFront to vary upon for this cache behavior. Specify `*` to include all headers.   | No       |
 | `forward_query_string`         | `false`                           | Forward query strings to the origin that is associated with this cache behavior                                                 | No       |
 | `geo_restriction_locations`    | `[]`                              | List of country codes for which  CloudFront either to distribute content (whitelist) or not distribute your content (blacklist) | No       |
 | `geo_restriction_type`         | `none`                            | Method that use to restrict distribution of your content by country: `none`, `whitelist`, or `blacklist`                        | No       |

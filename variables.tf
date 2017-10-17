@@ -125,6 +125,11 @@ variable "forward_query_string" {
   default = "false"
 }
 
+variable "forward_headers" {
+  type    = "list"
+  default = []
+}
+
 variable "forward_cookies" {
   default = "none"
 }

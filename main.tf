@@ -82,6 +82,8 @@ resource "aws_cloudfront_distribution" "default" {
     compress         = "${var.compress}"
 
     forwarded_values {
+      headers = ["${var.forward_headers}"]
+
       query_string = "${var.forward_query_string}"
 
       cookies {

@@ -127,8 +127,8 @@ variable "forward_query_string" {
 
 variable "forward_headers" {
   description = "Specifies the Headers, if any, that you want CloudFront to vary upon for this cache behavior. Specify `*` to include all headers."
-  type    = "list"
-  default = []
+  type        = "list"
+  default     = []
 }
 
 variable "forward_cookies" {

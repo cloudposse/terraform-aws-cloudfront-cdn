@@ -10,7 +10,7 @@ variable "attributes" {
 }
 
 variable "tags" {
-  default = {}
+  default = ""
 }
 
 variable "delimiter" {

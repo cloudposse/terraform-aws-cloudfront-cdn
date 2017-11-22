@@ -185,3 +185,8 @@ variable "parent_zone_id" {
 variable "parent_zone_name" {
   default = ""
 }
+
+variable "cache_behavior" {
+  description = "List of cache behaviors to implement"
+  default = []
+}

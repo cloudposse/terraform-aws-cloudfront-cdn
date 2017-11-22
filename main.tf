@@ -97,6 +97,8 @@ resource "aws_cloudfront_distribution" "default" {
     max_ttl                = "${var.max_ttl}"
   }
 
+  cache_behavior = "${var.cache_behavior}"
+
   restrictions {
     geo_restriction {
       restriction_type = "${var.geo_restriction_type}"

@@ -136,7 +136,7 @@ variable "forward_cookies" {
   default     = "none"
 }
 
-variable "forward_cookies_whitelist" {
+variable "forward_cookies_whitelisted_names" {
   description = "List of forwarded cookie names"
   default     = []
 }

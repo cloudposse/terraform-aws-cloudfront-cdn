@@ -132,7 +132,13 @@ variable "forward_headers" {
 }
 
 variable "forward_cookies" {
-  default = "none"
+  description = "Specifies whether you want CloudFront to forward cookies to the origin. Valid options are all, none or whitelist"
+  default     = "none"
+}
+
+variable "forward_cookies_whitelist" {
+  description = "List of forwarded cookie names"
+  default     = []
 }
 
 variable "price_class" {
@@ -188,5 +194,5 @@ variable "parent_zone_name" {
 
 variable "cache_behavior" {
   description = "List of cache behaviors to implement"
-  default = []
+  default     = []
 }

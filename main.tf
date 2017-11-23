@@ -87,7 +87,7 @@ resource "aws_cloudfront_distribution" "default" {
       query_string = "${var.forward_query_string}"
 
       cookies {
-        forward   = "${var.forward_cookies}"
+        forward           = "${var.forward_cookies}"
         whitelisted_names = ["${var.forward_cookies_whitelisted_names}"]
       }
     }

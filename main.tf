@@ -87,7 +87,8 @@ resource "aws_cloudfront_distribution" "default" {
       query_string = "${var.forward_query_string}"
 
       cookies {
-        forward = "${var.forward_cookies}"
+        forward           = "${var.forward_cookies}"
+        whitelisted_names = ["${var.forward_cookies_whitelisted_names}"]
       }
     }
 
@@ -96,6 +97,8 @@ resource "aws_cloudfront_distribution" "default" {
     min_ttl                = "${var.min_ttl}"
     max_ttl                = "${var.max_ttl}"
   }
+
+  cache_behavior = "${var.cache_behavior}"
 
   restrictions {
     geo_restriction {

@@ -4,20 +4,27 @@ Terraform Module that implements a CloudFront Distribution (CDN) for a custom or
 
 If you need to accelerate an S3 bucket, we suggest using [`terraform-aws-cloudfront-s3-cdn`](https://github.com/cloudposse/terraform-aws-cloudfront-s3-cdn) instead.
 
+
 ## Usage
+
+Basic usage:
 
 ```hcl
 module "cdn" {
   source             = "git::https://github.com/cloudposse/terraform-aws-cloudfront-cdn.git?ref=master"
-  namespace          = "${var.namespace}"
-  stage              = "${var.stage}"
-  name               = "${var.name}"
-  aliases            = "${var.aliases}"
-  parent_zone_id     = "${var.parent_zone_id}"
-  parent_zone_name   = "${var.parent_zone_name}"
-  origin_domain_name = "${var.origin_domain_name}"
+  namespace          = "cloudposse"
+  stage              = "prod"
+  name               = "app"
+  aliases            = ["cloudposse.com", "www.cloudposse.com"]
+  parent_zone_name   = "cloudposse.com"
+  origin_domain_name = "origin.cloudposse.com"
 }
 ```
+
+
+Complete example of setting up CloudFront Distribution with Cache Behaviors for a WordPress site: [`examples/wordpress`](examples/wordpress/main.tf)
+
+
 ### Generating ACM Certificate
 
 Use the AWS cli to [request new ACM certifiates](http://docs.aws.amazon.com/acm/latest/userguide/gs-acm-request.html) (requires email validation)
@@ -26,7 +33,7 @@ aws acm request-certificate --domain-name example.com --subject-alternative-name
 ```
 
 
-## Variables
+## Inputs
 
 |  Name                          |  Default                          |  Description                                                                                                                    | Required |
 |:-------------------------------|:---------------------------------:|:--------------------------------------------------------------------------------------------------------------------------------|:--------:|
@@ -86,3 +93,10 @@ aws acm request-certificate --domain-name example.com --subject-alternative-name
 | `cf_status`                 | Current status of the distribution                                              |
 | `cf_aliases`                | Extra CNAMEs of AWS CloudFront                                                  |
 | `cf_origin_access_identity` | A shortcut to the full path for the origin access identity to use in CloudFront |
+
+
+## License
+
+[APACHE 2.0](LICENSE) © 2017 [Cloud Posse, LLC](https://cloudposse.com)
+
+See [`LICENSE`](LICENSE) for full details.

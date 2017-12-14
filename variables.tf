@@ -10,6 +10,7 @@ variable "attributes" {
 }
 
 variable "tags" {
+  type    = "map"
   default = {}
 }
 
@@ -137,6 +138,7 @@ variable "forward_cookies" {
 }
 
 variable "forward_cookies_whitelisted_names" {
+  type        = "list"
   description = "List of forwarded cookie names"
   default     = []
 }
@@ -193,6 +195,7 @@ variable "parent_zone_name" {
 }
 
 variable "cache_behavior" {
+  type        = "list"
   description = "List of cache behaviors to implement"
   default     = []
 }

@@ -68,6 +68,7 @@ aws acm request-certificate --domain-name example.com --subject-alternative-name
 | `default_ttl`                  | `60`                              | Default amount of time (in seconds) that an object is in a CloudFront cache                                                     | No       |
 | `max_ttl`                      | `31536000`                        | Maximum amount of time (in seconds) that an object is in a CloudFront cache                                                     | No       |
 | `price_class`                  | `PriceClass_100`                  | Price class for this distribution: `PriceClass_All`, `PriceClass_200`, `PriceClass_100`                                         | No       |
+| `viewer_minimum_protocol_version` | `TLSv1`                        | The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections.                                  | No       |
 | `viewer_protocol_policy`       | `redirect-to-https`               | Element to specify the protocol: `allow-all`, `https-only`, `redirect-to-https`                                                 | No       |
 | `origin_path`                  | ``                                | Element that causes CloudFront to request your content from a directory in your Amazon S3 bucket                                | No       |
 | `origin_domain_name`           | ``                                | The DNS domain name of your custom origin (e.g. website)                                                                        | Yes      |

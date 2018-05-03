@@ -147,6 +147,11 @@ variable "price_class" {
   default = "PriceClass_100"
 }
 
+variable "viewer_minimum_protocol_version" {
+  description = "(Optional) The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections."
+  default     = "TLSv1"
+}
+
 variable "viewer_protocol_policy" {
   description = "allow-all, redirect-to-https"
   default     = "redirect-to-https"

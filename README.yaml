@@ -38,6 +38,12 @@ related:
   - name: "terraform-aws-cloudtrail"
     description: "Terraform module to provision an AWS CloudTrail and an encrypted S3 bucket with versioning to store CloudTrail logs"
     url: "https://github.com/cloudposse/terraform-aws-cloudtrail"
+  - name: "terraform-aws-s3-website"
+    description: "Terraform module to provision S3-backed Websites"
+    url: "https://github.com/cloudposse/terraform-aws-s3-website"
+  - name: "terraform-root-modules-aws-docs"
+    description: "Reference implementation combining `terraform-aws-s3-website` with `terraform-aws-cdn`"
+    url: "https://github.com/cloudposse/terraform-root-modules/tree/master/aws/docs"
 
 # Short description of this project
 description: |-

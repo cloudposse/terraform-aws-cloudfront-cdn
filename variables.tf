@@ -41,6 +41,16 @@ variable "custom_error_response" {
   default = []
 }
 
+variable "dns_aliases_enabled" {
+  description = "(Optional) Whether you want to create DNS records in Route53 for each alias"
+  default     = "false"  
+}
+
+variable "web_acl_id" {
+  description = "(Optional) - Web ACL ID that can be attached to the Cloudfront distribution"
+  default     = ""
+}
+
 variable "origin_domain_name" {
   description = "(Required) - The DNS domain name of your custom origin (e.g. website)"
   default     = ""

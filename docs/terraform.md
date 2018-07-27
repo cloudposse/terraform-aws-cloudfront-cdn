@@ -47,6 +47,7 @@
 | tags | Additional tags (e.g. `map('BusinessUnit','XYZ')`) | map | `<map>` | no |
 | viewer_minimum_protocol_version | (Optional) The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections. | string | `TLSv1` | no |
 | viewer_protocol_policy | allow-all, redirect-to-https | string | `redirect-to-https` | no |
+| web_acl_id | (Optional) - Web ACL ID that can be attached to the Cloudfront distribution | string | `` | no |
 
 ## Outputs
 

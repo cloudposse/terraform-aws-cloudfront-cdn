@@ -52,6 +52,11 @@ variable "custom_error_response" {
   default = []
 }
 
+variable "web_acl_id" {
+  description = "(Optional) - Web ACL ID that can be attached to the Cloudfront distribution"
+  default     = ""
+}
+
 variable "origin_domain_name" {
   description = "(Required) - The DNS domain name of your custom origin (e.g. website)"
   default     = ""

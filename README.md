@@ -84,6 +84,7 @@ Available targets:
 | default_root_object | Object that CloudFront return when requests the root URL | string | `index.html` | no |
 | default_ttl | Default amount of time (in seconds) that an object is in a CloudFront cache | string | `60` | no |
 | delimiter | Delimiter to be used between `name`, `namespace`, `stage`, etc. | string | `-` | no |
+| dns_aliases_enabled | Set to false to prevent dns records for aliases from being created | string | `true` | no |
 | enabled | Set to false to prevent the module from creating any resources | string | `true` | no |
 | forward_cookies | Specifies whether you want CloudFront to forward cookies to the origin. Valid options are all, none or whitelist | string | `none` | no |
 | forward_cookies_whitelisted_names | List of forwarded cookie names | list | `<list>` | no |

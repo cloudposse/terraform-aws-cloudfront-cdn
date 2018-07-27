@@ -99,7 +99,7 @@ resource "aws_cloudfront_distribution" "default" {
   }
 
   cache_behavior = "${var.cache_behavior}"
-  
+
   web_acl_id = "${var.web_acl_id}"
 
   restrictions {

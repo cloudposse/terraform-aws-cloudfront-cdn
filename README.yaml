@@ -1,0 +1,94 @@
+---
+#
+# This is the canonical configuration for the `README.md`
+# Run `make readme` to rebuild the `README.md`
+#
+
+# Name of this project
+name: terraform-aws-cloudfront-cdn
+
+# Logo for this project
+#logo: docs/logo.png
+
+# License of this project
+license: "APACHE2"
+
+# Canonical GitHub repo
+github_repo: cloudposse/terraform-aws-cloudfront-cdn
+
+# Badges to display
+badges:
+  - name: "Build Status"
+    image: "https://travis-ci.org/cloudposse/terraform-aws-cloudfront-cdn.svg?branch=master"
+    url: "https://travis-ci.org/cloudposse/terraform-aws-cloudfront-cdn"
+  - name: "Latest Release"
+    image: "https://img.shields.io/github/release/cloudposse/terraform-aws-cloudfront-cdn.svg"
+    url: "https://github.com/cloudposse/terraform-aws-cloudfront-cdn/releases/latest"
+  - name: "Slack Community"
+    image: "https://slack.cloudposse.com/badge.svg"
+    url: "https://slack.cloudposse.com"
+
+related:
+  - name: "terraform-aws-cloudfront-s3-cdn"
+    description: "Terraform module to easily provision CloudFront CDN backed by an S3 origin"
+    url: "https://github.com/cloudposse/terraform-aws-cloudfront-s3-cdn"
+  - name: "terraform-aws-s3-log-storage"
+    description: "This module creates an S3 bucket suitable for receiving logs from other AWS services such as S3, CloudFront, and CloudTrail"
+    url: "https://github.com/cloudposse/terraform-aws-s3-log-storage"
+  - name: "terraform-aws-cloudtrail"
+    description: "Terraform module to provision an AWS CloudTrail and an encrypted S3 bucket with versioning to store CloudTrail logs"
+    url: "https://github.com/cloudposse/terraform-aws-cloudtrail"
+  - name: "terraform-aws-s3-website"
+    description: "Terraform module to provision S3-backed Websites"
+    url: "https://github.com/cloudposse/terraform-aws-s3-website"
+  - name: "terraform-root-modules/aws/docs"
+    description: "Reference implementation combining `terraform-aws-s3-website` with `terraform-aws-cdn`"
+    url: "https://github.com/cloudposse/terraform-root-modules/tree/master/aws/docs"
+
+# Short description of this project
+description: |-
+  Terraform Module that implements a CloudFront Distribution (CDN) for a custom origin (e.g. website) and [ships logs to a bucket](https://github.com/cloudposse/terraform-aws-log-storage). 
+
+  If you need to accelerate an S3 bucket, we suggest using [`terraform-aws-cloudfront-s3-cdn`](https://github.com/cloudposse/terraform-aws-cloudfront-s3-cdn) instead.
+
+# How to use this project
+usage: |-
+  Basic usage:
+
+  ```hcl
+  module "cdn" {
+    source             = "git::https://github.com/cloudposse/terraform-aws-cloudfront-cdn.git?ref=master"
+    namespace          = "cp"
+    stage              = "prod"
+    name               = "app"
+    aliases            = ["cloudposse.com", "www.cloudposse.com"]
+    parent_zone_name   = "cloudposse.com"
+    origin_domain_name = "origin.cloudposse.com"
+  }
+  ```
+
+
+  Complete example of setting up CloudFront Distribution with Cache Behaviors for a WordPress site: [`examples/wordpress`](examples/wordpress/main.tf)
+
+
+  ### Generating ACM Certificate
+
+  Use the AWS cli to [request new ACM certifiates](http://docs.aws.amazon.com/acm/latest/userguide/gs-acm-request.html) (requires email validation)
+  ```
+  aws acm request-certificate --domain-name example.com --subject-alternative-names a.example.com b.example.com *.c.example.com
+  ```
+
+include:
+  - "docs/targets.md"
+  - "docs/terraform.md"
+
+# Contributors to this project
+contributors:
+  - name: "Erik Osterman"
+    github: "osterman"
+  - name: "Igor Rodionov"
+    github: "goruha"
+  - name: "Andriy Knysh"
+    github: "aknysh"
+  - name: "Justin Burnham"
+    github: "jburnham"

@@ -1,25 +1,35 @@
-variable "name" {}
+variable "name" {
+  description = "Name  (e.g. `bastion` or `db`)"
+}
 
-variable "namespace" {}
+variable "namespace" {
+  description = "Namespace (e.g. `cp` or `cloudposse`)"
+}
 
-variable "stage" {}
+variable "stage" {
+  description = "Stage (e.g. `prod`, `dev`, `staging`)"
+}
 
 variable "attributes" {
-  type    = "list"
-  default = []
+  type        = "list"
+  default     = []
+  description = "Additional attributes (e.g. `policy` or `role`)"
 }
 
 variable "tags" {
-  type    = "map"
-  default = {}
+  type        = "map"
+  default     = {}
+  description = "Additional tags (e.g. `map('BusinessUnit','XYZ')`)"
 }
 
 variable "delimiter" {
-  default = "-"
+  default     = "-"
+  description = "Delimiter to be used between `name`, `namespace`, `stage`, etc."
 }
 
 variable "enabled" {
-  default = "true"
+  default     = "true"
+  description = "Set to false to prevent the module from creating any resources"
 }
 
 variable "acm_certificate_arn" {
@@ -28,8 +38,9 @@ variable "acm_certificate_arn" {
 }
 
 variable "aliases" {
-  type    = "list"
-  default = []
+  type        = "list"
+  default     = []
+  description = "List of aliases. CAUTION! Names MUSTN'T contain trailing `.`"
 }
 
 variable "custom_error_response" {
@@ -88,23 +99,28 @@ variable "compress" {
 }
 
 variable "is_ipv6_enabled" {
-  default = "true"
+  default     = "true"
+  description = "State of CloudFront IPv6"
 }
 
 variable "default_root_object" {
-  default = "index.html"
+  default     = "index.html"
+  description = "Object that CloudFront return when requests the root URL"
 }
 
 variable "comment" {
-  default = "Managed by Terraform"
+  default     = "Managed by Terraform"
+  description = "Comment for the origin access identity"
 }
 
 variable "log_include_cookies" {
-  default = "false"
+  default     = "false"
+  description = "Include cookies in access logs"
 }
 
 variable "log_prefix" {
-  default = ""
+  default     = ""
+  description = "Path of logs in S3 bucket"
 }
 
 variable "log_standard_transition_days" {
@@ -123,7 +139,8 @@ variable "log_expiration_days" {
 }
 
 variable "forward_query_string" {
-  default = "false"
+  default     = "false"
+  description = "Forward query strings to the origin that is associated with this cache behavior"
 }
 
 variable "forward_headers" {
@@ -144,7 +161,8 @@ variable "forward_cookies_whitelisted_names" {
 }
 
 variable "price_class" {
-  default = "PriceClass_100"
+  default     = "PriceClass_100"
+  description = "Price class for this distribution: `PriceClass_All`, `PriceClass_200`, `PriceClass_100`"
 }
 
 variable "viewer_minimum_protocol_version" {
@@ -158,45 +176,54 @@ variable "viewer_protocol_policy" {
 }
 
 variable "allowed_methods" {
-  type    = "list"
-  default = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
+  type        = "list"
+  default     = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
+  description = "List of allowed methods (e.g. ` GET, PUT, POST, DELETE, HEAD`) for AWS CloudFront"
 }
 
 variable "cached_methods" {
-  type    = "list"
-  default = ["GET", "HEAD"]
+  type        = "list"
+  default     = ["GET", "HEAD"]
+  description = "List of cached methods (e.g. ` GET, PUT, POST, DELETE, HEAD`)"
 }
 
 variable "default_ttl" {
-  default = "60"
+  default     = "60"
+  description = "Default amount of time (in seconds) that an object is in a CloudFront cache"
 }
 
 variable "min_ttl" {
-  default = "0"
+  default     = "0"
+  description = "Minimum amount of time that you want objects to stay in CloudFront caches"
 }
 
 variable "max_ttl" {
-  default = "31536000"
+  default     = "31536000"
+  description = "Maximum amount of time (in seconds) that an object is in a CloudFront cache"
 }
 
 variable "geo_restriction_type" {
   # e.g. "whitelist"
-  default = "none"
+  default     = "none"
+  description = "Method that use to restrict distribution of your content by country: `none`, `whitelist`, or `blacklist`"
 }
 
 variable "geo_restriction_locations" {
   type = "list"
 
   # e.g. ["US", "CA", "GB", "DE"]
-  default = []
+  default     = []
+  description = "List of country codes for which  CloudFront either to distribute content (whitelist) or not distribute your content (blacklist)"
 }
 
 variable "parent_zone_id" {
-  default = ""
+  default     = ""
+  description = " ID of the hosted zone to contain this record  (or specify `parent_zone_name`)"
 }
 
 variable "parent_zone_name" {
-  default = ""
+  default     = ""
+  description = "Name of the hosted zone to contain this record (or specify `parent_zone_id`)"
 }
 
 variable "cache_behavior" {

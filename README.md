@@ -80,7 +80,7 @@ aws acm request-certificate --domain-name example.com --subject-alternative-name
 | `origin_ssl_protocols`         | `["TLSv1", "TLSv1.1", "TLSv1.2"]` | The SSL/TLS protocols that you want CloudFront to use when communicating with your origin over HTTPS                            | No       |
 | `parent_zone_id`               | ``                                | ID of the hosted zone to contain this record  (or specify `parent_zone_name`)                                                   | Yes      |
 | `parent_zone_name`             | ``                                | Name of the hosted zone to contain this record (or specify `parent_zone_id`)                                                    | Yes      |
-
+| `web_acl_id`                   | ``                                | ID of the Global WAF Web ACL that needs to be attached to cloudfront distribution)                                          | No      |
 
 ## Outputs
 

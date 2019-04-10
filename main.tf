@@ -24,6 +24,7 @@ module "logs" {
   standard_transition_days = "${var.log_standard_transition_days}"
   glacier_transition_days  = "${var.log_glacier_transition_days}"
   expiration_days          = "${var.log_expiration_days}"
+  force_destroy		   = "true"
 }
 
 module "distribution_label" {
@@ -98,7 +99,7 @@ resource "aws_cloudfront_distribution" "default" {
     max_ttl                = "${var.max_ttl}"
   }
 
-  cache_behavior = "${var.cache_behavior}"
+  ordered_cache_behavior = "${var.ordered_cache_behavior}"
 
   web_acl_id = "${var.web_acl_id}"
 

@@ -98,7 +98,7 @@ resource "aws_cloudfront_distribution" "default" {
     max_ttl                = "${var.max_ttl}"
   }
 
-  cache_behavior = "${var.cache_behavior}"
+  ordered_cache_behavior = "${var.cache_behavior}"
 
   web_acl_id = "${var.web_acl_id}"
 

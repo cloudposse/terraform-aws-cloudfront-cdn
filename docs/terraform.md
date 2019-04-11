@@ -1,4 +1,3 @@
-
 ## Inputs
 
 | Name | Description | Type | Default | Required |
@@ -7,12 +6,11 @@
 | aliases | List of aliases. CAUTION! Names MUSTN'T contain trailing `.` | list | `<list>` | no |
 | allowed_methods | List of allowed methods (e.g. ` GET, PUT, POST, DELETE, HEAD`) for AWS CloudFront | list | `<list>` | no |
 | attributes | Additional attributes (e.g. `policy` or `role`) | list | `<list>` | no |
-| cache_behavior | List of cache behaviors to implement | list | `<list>` | no |
 | cached_methods | List of cached methods (e.g. ` GET, PUT, POST, DELETE, HEAD`) | list | `<list>` | no |
 | comment | Comment for the origin access identity | string | `Managed by Terraform` | no |
 | compress | (Optional) Whether you want CloudFront to automatically compress content for web requests that include Accept-Encoding: gzip in the request header (default: false) | string | `false` | no |
 | custom_error_response | (Optional) - List of one or more custom error response element maps | list | `<list>` | no |
-| default_root_object | Object that CloudFront return when requests the root URL | string | `index.html` | no |
+| default_root_object | Object that CloudFront return when requests the root URL | string | `` | no |
 | default_ttl | Default amount of time (in seconds) that an object is in a CloudFront cache | string | `60` | no |
 | delimiter | Delimiter to be used between `name`, `namespace`, `stage`, etc. | string | `-` | no |
 | dns_aliases_enabled | Set to false to prevent dns records for aliases from being created | string | `true` | no |
@@ -33,6 +31,7 @@
 | min_ttl | Minimum amount of time that you want objects to stay in CloudFront caches | string | `0` | no |
 | name | Name  (e.g. `bastion` or `db`) | string | - | yes |
 | namespace | Namespace (e.g. `cp` or `cloudposse`) | string | - | yes |
+| ordered_cache_behavior | List of cache behaviors to implement | list | `<list>` | no |
 | origin_domain_name | (Required) - The DNS domain name of your custom origin (e.g. website) | string | `` | no |
 | origin_http_port | (Required) - The HTTP port the custom origin listens on | string | `80` | no |
 | origin_https_port | (Required) - The HTTPS port the custom origin listens on | string | `443` | no |

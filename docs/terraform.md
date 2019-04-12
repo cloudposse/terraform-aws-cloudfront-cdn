@@ -15,6 +15,7 @@
 | delimiter | Delimiter to be used between `name`, `namespace`, `stage`, etc. | string | `-` | no |
 | dns_aliases_enabled | Set to false to prevent dns records for aliases from being created | string | `true` | no |
 | enabled | Set to false to prevent the module from creating any resources | string | `true` | no |
+| force_destroy_logs | Force delete the s3 bucket that contains the Cloudfront distribution logs when destroying the distribution | string | `false` | no |
 | forward_cookies | Specifies whether you want CloudFront to forward cookies to the origin. Valid options are all, none or whitelist | string | `none` | no |
 | forward_cookies_whitelisted_names | List of forwarded cookie names | list | `<list>` | no |
 | forward_headers | Specifies the Headers, if any, that you want CloudFront to vary upon for this cache behavior. Specify `*` to include all headers. | list | `<list>` | no |

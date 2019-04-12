@@ -241,3 +241,8 @@ variable "ordered_cache_behavior" {
   description = "List of cache behaviors to implement"
   default     = []
 }
+
+variable "force_destroy_logs" {
+  default     = "false"
+  description = "Force delete the s3 bucket that contains the Cloudfront distribution logs when destroying the distribution"
+}

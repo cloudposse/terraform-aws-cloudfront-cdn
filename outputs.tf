@@ -9,7 +9,7 @@ output "cf_arn" {
 }
 
 output "cf_aliases" {
-  value       = "${aws_cloudfront_distribution.default.aliases}"
+  value       = "${var.aliases}"
   description = "Extra CNAMEs of AWS CloudFront"
 }
 

@@ -11,13 +11,13 @@ variable "stage" {
 }
 
 variable "attributes" {
-  type        = "list"
+  type        = list(string)
   default     = []
   description = "Additional attributes (e.g. `policy` or `role`)"
 }
 
 variable "tags" {
-  type        = "map"
+  type        = map(string)
   default     = {}
   description = "Additional tags (e.g. `map('BusinessUnit','XYZ')`)"
 }
@@ -43,7 +43,7 @@ variable "acm_certificate_arn" {
 }
 
 variable "aliases" {
-  type        = "list"
+  type        = list(string)
   default     = []
   description = "List of aliases. CAUTION! Names MUSTN'T contain trailing `.`"
 }
@@ -53,7 +53,7 @@ variable "custom_error_response" {
   # https://www.terraform.io/docs/providers/aws/r/cloudfront_distribution.html#custom-error-response-arguments
   description = "(Optional) - List of one or more custom error response element maps"
 
-  type    = "list"
+  type    = list
   default = []
 }
 
@@ -89,7 +89,7 @@ variable "origin_protocol_policy" {
 
 variable "origin_ssl_protocols" {
   description = "(Required) - The SSL/TLS protocols that you want CloudFront to use when communicating with your origin over HTTPS"
-  type        = "list"
+  type        = list(string)
   default     = ["TLSv1", "TLSv1.1", "TLSv1.2"]
 }
 
@@ -155,7 +155,7 @@ variable "forward_query_string" {
 
 variable "forward_headers" {
   description = "Specifies the Headers, if any, that you want CloudFront to vary upon for this cache behavior. Specify `*` to include all headers."
-  type        = "list"
+  type        = list(string)
   default     = []
 }
 
@@ -165,7 +165,7 @@ variable "forward_cookies" {
 }
 
 variable "forward_cookies_whitelisted_names" {
-  type        = "list"
+  type        = list(string)
   description = "List of forwarded cookie names"
   default     = []
 }
@@ -186,13 +186,13 @@ variable "viewer_protocol_policy" {
 }
 
 variable "allowed_methods" {
-  type        = "list"
+  type        = list(string)
   default     = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
   description = "List of allowed methods (e.g. ` GET, PUT, POST, DELETE, HEAD`) for AWS CloudFront"
 }
 
 variable "cached_methods" {
-  type        = "list"
+  type        = list(string)
   default     = ["GET", "HEAD"]
   description = "List of cached methods (e.g. ` GET, PUT, POST, DELETE, HEAD`)"
 }
@@ -219,7 +219,7 @@ variable "geo_restriction_type" {
 }
 
 variable "geo_restriction_locations" {
-  type = "list"
+  type = list(string)
 
   # e.g. ["US", "CA", "GB", "DE"]
   default     = []
@@ -237,7 +237,8 @@ variable "parent_zone_name" {
 }
 
 variable "cache_behavior" {
-  type        = "list"
+  type        = list(string)
   description = "An ordered list of cache behaviors resource for this distribution. List from top to bottom in order of precedence. The topmost cache behavior will have precedence 0."
   default     = []
 }
+

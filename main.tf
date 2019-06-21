@@ -20,7 +20,7 @@ module "logs" {
   delimiter                = var.delimiter
   attributes               = [compact(concat(var.attributes, ["origin", "logs"]))]
   tags                     = var.tags
-  prefix                   = var.log_prefix
+  lifecycle_prefix         = var.log_prefix
   standard_transition_days = var.log_standard_transition_days
   glacier_transition_days  = var.log_glacier_transition_days
   expiration_days          = var.log_expiration_days

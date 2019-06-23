@@ -13,7 +13,7 @@ resource "aws_cloudfront_origin_access_identity" "default" {
 }
 
 module "logs" {
-  source                   = "git::https://github.com/cloudposse/terraform-aws-s3-log-storage.git?ref=master"
+  source                   = "git::https://github.com/rverma-nikiai/terraform-aws-s3-log-storage.git?ref=master"
   namespace                = var.namespace
   stage                    = var.stage
   name                     = var.name
@@ -173,7 +173,7 @@ resource "aws_cloudfront_distribution" "default" {
 }
 
 module "dns" {
-  source           = "git::https://github.com/cloudposse/terraform-aws-route53-alias.git?ref=master"
+  source           = "git::https://github.com/rverma-nikiai/terraform-aws-route53-alias.git?ref=master"
   enabled          = var.dns_aliases_enabled
   aliases          = var.aliases
   parent_zone_id   = var.parent_zone_id

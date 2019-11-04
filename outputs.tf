@@ -1,11 +1,11 @@
 output "cf_id" {
-  value       = "${aws_cloudfront_distribution.default.id}"
+  value       = "${element(concat(aws_cloudfront_distribution.default.*.id, list("")), 0)}"
   description = "ID of AWS CloudFront distribution"
 }
 
 output "cf_arn" {
-  value       = "${aws_cloudfront_distribution.default.arn}"
-  description = "ID of AWS CloudFront distribution"
+  value       = "${element(concat(aws_cloudfront_distribution.default.*.arn, list("")), 0)}"
+  description = "ARN of AWS CloudFront distribution"
 }
 
 output "cf_aliases" {
@@ -14,22 +14,22 @@ output "cf_aliases" {
 }
 
 output "cf_status" {
-  value       = "${aws_cloudfront_distribution.default.status}"
+  value       = "${element(concat(aws_cloudfront_distribution.default.*.status, list("")), 0)}"
   description = "Current status of the distribution"
 }
 
 output "cf_domain_name" {
-  value       = "${aws_cloudfront_distribution.default.domain_name}"
+  value       = "${element(concat(aws_cloudfront_distribution.default.*.domain_name, list("")), 0)}"
   description = "Domain name corresponding to the distribution"
 }
 
 output "cf_etag" {
-  value       = "${aws_cloudfront_distribution.default.etag}"
+  value       = "${element(concat(aws_cloudfront_distribution.default.*.etag, list("")), 0)}"
   description = "Current version of the distribution's information"
 }
 
 output "cf_hosted_zone_id" {
-  value       = "${aws_cloudfront_distribution.default.hosted_zone_id}"
+  value       = "${element(concat(aws_cloudfront_distribution.default.*.hosted_zone_id, list("")), 0)}"
   description = "CloudFront Route 53 zone ID"
 }
 

@@ -1,5 +1,6 @@
 module "origin_label" {
   source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.3.7"
+  enabled    = "${var.enabled ? true : false }"
   namespace  = "${var.namespace}"
   stage      = "${var.stage}"
   name       = "${var.name}"
@@ -13,7 +14,8 @@ resource "aws_cloudfront_origin_access_identity" "default" {
 }
 
 module "logs" {
-  source                   = "git::https://github.com/cloudposse/terraform-aws-log-storage.git?ref=tags/0.2.2"
+  source                   = "git::https://github.com/cloudposse/terraform-aws-log-storage.git?ref=tags/0.3.0"
+  enabled                  = "${var.enabled ? true : false }"
   namespace                = "${var.namespace}"
   stage                    = "${var.stage}"
   name                     = "${var.name}"
@@ -28,6 +30,7 @@ module "logs" {
 
 module "distribution_label" {
   source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.3.7"
+  enabled    = "${var.enabled ? true : false }"
   namespace  = "${var.namespace}"
   stage      = "${var.stage}"
   name       = "${var.name}"
@@ -119,6 +122,6 @@ module "dns" {
   aliases          = "${var.aliases}"
   parent_zone_id   = "${var.parent_zone_id}"
   parent_zone_name = "${var.parent_zone_name}"
-  target_dns_name  = "${element(concat(aws_cloudfront_distribution.default.*.domain_name, list("")), 0)}"
-  target_zone_id   = "${element(concat(aws_cloudfront_distribution.default.*.hosted_zone_id, list("")), 0)}"
+  target_dns_name  = "${join("", aws_cloudfront_distribution.default.*.domain_name)}"
+  target_zone_id   = "${join("", aws_cloudfront_distribution.default.*.hosted_zone_id)}"
 }

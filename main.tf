@@ -109,7 +109,7 @@ resource "aws_cloudfront_distribution" "default" {
   restrictions {
     geo_restriction {
       restriction_type = "${var.geo_restriction_type}"
-      locations        = "${var.geo_restriction_locations}"
+      locations        = ["${var.geo_restriction_locations}"]
     }
   }
 

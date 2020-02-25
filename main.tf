@@ -1,6 +1,6 @@
 module "origin_label" {
   source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.3.7"
-  enabled    = "${var.enabled ? true : false }"
+  enabled    = "${var.enabled ? true : false}"
   namespace  = "${var.namespace}"
   stage      = "${var.stage}"
   name       = "${var.name}"
@@ -15,7 +15,7 @@ resource "aws_cloudfront_origin_access_identity" "default" {
 
 module "logs" {
   source                   = "git::https://github.com/cloudposse/terraform-aws-log-storage.git?ref=tags/0.3.0"
-  enabled                  = "${var.enabled ? true : false }"
+  enabled                  = "${var.enabled ? true : false}"
   namespace                = "${var.namespace}"
   stage                    = "${var.stage}"
   name                     = "${var.name}"
@@ -30,7 +30,7 @@ module "logs" {
 
 module "distribution_label" {
   source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.3.7"
-  enabled    = "${var.enabled ? true : false }"
+  enabled    = "${var.enabled ? true : false}"
   namespace  = "${var.namespace}"
   stage      = "${var.stage}"
   name       = "${var.name}"
@@ -40,7 +40,7 @@ module "distribution_label" {
 }
 
 resource "aws_cloudfront_distribution" "default" {
-  count               = "${var.enabled ? 1 : 0 }"
+  count               = "${var.enabled ? 1 : 0}"
   enabled             = "${var.enabled}"
   is_ipv6_enabled     = "${var.is_ipv6_enabled}"
   comment             = "${var.comment}"

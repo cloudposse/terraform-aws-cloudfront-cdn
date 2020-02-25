@@ -184,7 +184,7 @@ Available targets:
 | Name | Description |
 |------|-------------|
 | cf_aliases | Extra CNAMEs of AWS CloudFront |
-| cf_arn | ID of AWS CloudFront distribution |
+| cf_arn | ARN of AWS CloudFront distribution |
 | cf_domain_name | Domain name corresponding to the distribution |
 | cf_etag | Current version of the distribution's information |
 | cf_hosted_zone_id | CloudFront Route 53 zone ID |

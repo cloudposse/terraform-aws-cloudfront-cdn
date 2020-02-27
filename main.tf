@@ -13,7 +13,7 @@ resource "aws_cloudfront_origin_access_identity" "default" {
 }
 
 module "logs" {
-  source                   = "git::https://github.com/rverma-nikiai/terraform-aws-s3-log-storage.git?ref=master"
+  source                   = "git::https://github.com/cloudposse/terraform-aws-s3-log-storage.git?ref=tags/0.5.0"
   namespace                = var.namespace
   stage                    = var.stage
   name                     = var.name
@@ -52,7 +52,7 @@ resource "aws_cloudfront_distribution" "default" {
   aliases = var.aliases
 
   dynamic "custom_error_response" {
-    for_each = [var.custom_error_response]
+    for_each = var.custom_error_response
     content {
       # TF-UPGRADE-TODO: The automatic upgrade tool can't predict
       # which keys might be set in maps assigned here, so it has
@@ -173,7 +173,7 @@ resource "aws_cloudfront_distribution" "default" {
 }
 
 module "dns" {
-  source           = "git::https://github.com/rverma-nikiai/terraform-aws-route53-alias.git?ref=master"
+  source           = "git::https://github.com/cloudposse/terraform-aws-route53-alias.git?ref=tags/0.3.0"
   enabled          = var.dns_aliases_enabled
   aliases          = var.aliases
   parent_zone_id   = var.parent_zone_id
@@ -181,4 +181,3 @@ module "dns" {
   target_dns_name  = aws_cloudfront_distribution.default.domain_name
   target_zone_id   = aws_cloudfront_distribution.default.hosted_zone_id
 }
-

@@ -241,3 +241,8 @@ variable "cache_behavior" {
   description = "An ordered list of cache behaviors resource for this distribution. List from top to bottom in order of precedence. The topmost cache behavior will have precedence 0."
   default     = []
 }
+
+variable enable_logging{
+  default = "0"
+  description = "Choose true/false to enable disable logging for cloudfront distribution"
+ }

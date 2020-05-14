@@ -42,12 +42,7 @@ resource "aws_cloudfront_distribution" "default" {
   comment             = "${var.comment}"
   default_root_object = "${var.default_root_object}"
   price_class         = "${var.price_class}"
-
-  logging_config = {
-    include_cookies = "${var.log_include_cookies}"
-    bucket          = "${module.logs.bucket_domain_name}"
-    prefix          = "${var.log_prefix}"
-  }
+  
 
   aliases = ["${var.aliases}"]
 
@@ -110,6 +105,13 @@ resource "aws_cloudfront_distribution" "default" {
   }
 
   tags = "${module.distribution_label.tags}"
+
+  count = var.enable_logging ? 1 : 0
+  logging_config = {
+    include_cookies = "${var.log_include_cookies}"
+    bucket          = "${module.logs.bucket_domain_name}"
+    prefix          = "${var.log_prefix}"
+  }
 }
 
 module "dns" {

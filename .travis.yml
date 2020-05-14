@@ -8,6 +8,10 @@ addons:
 install:
   - make init
 
+env:
+  - TERRAFORM_VERSION=0.12.25
+  - TERRAFORM_VERSION=0.12.24
+
 script:
   - make terraform/install
   - make terraform/get-plugins

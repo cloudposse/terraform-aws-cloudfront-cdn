@@ -63,6 +63,7 @@ description: |-
   Terraform Module that implements a CloudFront Distribution (CDN) for a custom origin (e.g. website) and [ships logs to a bucket](https://github.com/cloudposse/terraform-aws-log-storage). 
 
   If you need to accelerate an S3 bucket, we suggest using [`terraform-aws-cloudfront-s3-cdn`](https://github.com/cloudposse/terraform-aws-cloudfront-s3-cdn) instead.
+  I updated this terraform module to support terraform 0.12 #ismail yenigul
 
 # How to use this project
 usage: |-

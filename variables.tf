@@ -1,8 +1,3 @@
-variable "region" {
-  type        = string
-  description = "AWS region"
-}
-
 variable "name" {
   type        = string
   description = "Name  (e.g. `bastion` or `db`)"

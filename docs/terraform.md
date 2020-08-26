@@ -55,7 +55,6 @@
 | parent\_zone\_id | ID of the hosted zone to contain this record (or specify `parent_zone_name`) | `string` | `""` | no |
 | parent\_zone\_name | Name of the hosted zone to contain this record (or specify `parent_zone_id`) | `string` | `""` | no |
 | price\_class | Price class for this distribution: `PriceClass_All`, `PriceClass_200`, `PriceClass_100` | `string` | `"PriceClass_100"` | no |
-| region | AWS region | `string` | n/a | yes |
 | stage | Stage (e.g. `prod`, `dev`, `staging`) | `string` | `""` | no |
 | tags | Additional tags (e.g. `map('BusinessUnit','XYZ')`) | `map(string)` | `{}` | no |
 | viewer\_minimum\_protocol\_version | (Optional) The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections. | `string` | `"TLSv1"` | no |

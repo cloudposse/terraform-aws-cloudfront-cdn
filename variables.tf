@@ -92,13 +92,13 @@ variable "origin_path" {
 
 variable "origin_http_port" {
   type        = number
-  description = "(Required) - The HTTP port the custom origin listens on"
+  description = "The HTTP port the custom origin listens on"
   default     = "80"
 }
 
 variable "origin_https_port" {
   type        = number
-  description = "(Required) - The HTTPS port the custom origin listens on"
+  description = "The HTTPS port the custom origin listens on"
   default     = 443
 }
 
@@ -116,7 +116,7 @@ variable "origin_ssl_protocols" {
 
 variable "origin_keepalive_timeout" {
   type        = number
-  description = "(Optional) The Custom KeepAlive timeout, in seconds. By default, AWS enforces a limit of 60. But you can request an increase."
+  description = "The Custom KeepAlive timeout, in seconds. By default, AWS enforces a limit of 60. But you can request an increase."
   default     = 60
 }
 
@@ -128,7 +128,7 @@ variable "origin_read_timeout" {
 
 variable "compress" {
   type        = bool
-  description = "(Optional) Whether you want CloudFront to automatically compress content for web requests that include Accept-Encoding: gzip in the request header (default: false)"
+  description = "Whether you want CloudFront to automatically compress content for web requests that include Accept-Encoding: gzip in the request header (default: false)"
   default     = false
 }
 
@@ -212,7 +212,7 @@ variable "price_class" {
 
 variable "viewer_minimum_protocol_version" {
   type        = string
-  description = "(Optional) The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections."
+  description = "The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections."
   default     = "TLSv1"
 }
 

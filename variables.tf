@@ -79,7 +79,7 @@ variable "web_acl_id" {
 
 variable "origin_domain_name" {
   type        = string
-  description = "(Required) - The DNS domain name of your custom origin (e.g. website)"
+  description = "The DNS domain name of your custom origin (e.g. website)"
   default     = ""
 }
 
@@ -311,4 +311,3 @@ a description in var.lambda_function_association variable earlier in this file. 
 of the vars in this file apply only to the default cache. Put value `""` on field `target_origin_id` to specify default s3 bucket origin.
 DESCRIPTION
 }
-

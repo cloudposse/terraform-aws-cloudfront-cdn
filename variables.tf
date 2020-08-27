@@ -104,7 +104,7 @@ variable "origin_https_port" {
 
 variable "origin_protocol_policy" {
   type        = string
-  description = "(Required) - The origin protocol policy to apply to your origin. One of http-only, https-only, or match-viewer"
+  description = "The origin protocol policy to apply to your origin. One of http-only, https-only, or match-viewer"
   default     = "match-viewer"
 }
 

@@ -38,4 +38,9 @@ func TestExamplesComplete(t *testing.T) {
 
 	// This will run `terraform init` and `terraform apply` and fail the test if there are any errors
 	terraform.InitAndApply(t, terraformOptions)
+
+	// Run `terraform output` to get the value of an output variable
+	cfDomainName := terraform.Output(t, terraformOptions, "cf_domain_name")
+	// Verify we're getting back the outputs we expect
+	assert.Equal(t, "example.com", cfDomainName)
 }

@@ -137,6 +137,7 @@ Available targets:
 | default\_root\_object | Object that CloudFront return when requests the root URL | `string` | `"index.html"` | no |
 | default\_ttl | Default amount of time (in seconds) that an object is in a CloudFront cache | `number` | `60` | no |
 | delimiter | Delimiter to be used between `name`, `namespace`, `stage`, etc. | `string` | `"-"` | no |
+| distribution\_enabled | Set to true if you want CloudFront to begin processing requests as soon as the distribution is created, or to false if you do not want CloudFront to begin processing requests after the distribution is created. | `bool` | `true` | no |
 | dns\_aliases\_enabled | Set to false to prevent dns records for aliases from being created | `bool` | `true` | no |
 | enabled | Set to false to prevent the module from creating any resources | `bool` | `true` | no |
 | environment | Environment, e.g. 'prod', 'staging', 'dev', 'pre-prod', 'UAT' | `string` | `""` | no |

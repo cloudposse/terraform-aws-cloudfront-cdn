@@ -45,6 +45,12 @@ variable "enabled" {
   description = "Set to false to prevent the module from creating any resources"
 }
 
+variable "distribution_enabled" {
+  type        = bool
+  default     = true
+  description = "Set to true if you want CloudFront to begin processing requests as soon as the distribution is created, or to false if you do not want CloudFront to begin processing requests after the distribution is created."
+}
+
 variable "dns_aliases_enabled" {
   type        = bool
   default     = true

@@ -1,4 +1,6 @@
 module "origin_label" {
+  enabled = var.enabled
+
   source      = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.17.0"
   namespace   = var.namespace
   stage       = var.stage
@@ -10,10 +12,14 @@ module "origin_label" {
 }
 
 resource "aws_cloudfront_origin_access_identity" "default" {
+  count = var.enabled ? 1 : 0
+
   comment = module.distribution_label.id
 }
 
 module "logs" {
+  enabled = var.enabled ? true : false
+
   source                   = "git::https://github.com/cloudposse/terraform-aws-log-storage.git?ref=tags/0.13.1"
   namespace                = var.namespace
   stage                    = var.stage
@@ -28,6 +34,8 @@ module "logs" {
 }
 
 module "distribution_label" {
+  enabled = var.enabled ? true : false
+
   source      = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.17.0"
   namespace   = var.namespace
   stage       = var.stage
@@ -39,7 +47,9 @@ module "distribution_label" {
 }
 
 resource "aws_cloudfront_distribution" "default" {
-  enabled             = var.enabled
+  count = var.enabled ? 1 : 0
+
+  enabled             = var.distribution_enabled
   is_ipv6_enabled     = var.is_ipv6_enabled
   comment             = var.comment
   default_root_object = var.default_root_object
@@ -159,11 +169,11 @@ resource "aws_cloudfront_distribution" "default" {
 
 module "dns" {
   source           = "git::https://github.com/cloudposse/terraform-aws-route53-alias.git?ref=tags/0.8.0"
-  enabled          = var.dns_aliases_enabled
+  enabled          = (var.enabled && var.dns_aliases_enabled) ? true : false
   aliases          = var.aliases
   parent_zone_id   = var.parent_zone_id
   parent_zone_name = var.parent_zone_name
-  target_dns_name  = aws_cloudfront_distribution.default.domain_name
-  target_zone_id   = aws_cloudfront_distribution.default.hosted_zone_id
+  target_dns_name  = aws_cloudfront_distribution.default[0].domain_name
+  target_zone_id   = aws_cloudfront_distribution.default[0].hosted_zone_id
 }
 

@@ -17,10 +17,8 @@ locals {
 
 module "cdn" {
   source     = "../../"
-  namespace  = "cp"
-  stage      = "prod"
+  context    = module.this.context
   name       = "wordpress"
-  region     = "us-east-2"
   attributes = ["cloudposse.com"]
 
   aliases                           = ["cloudposse.com", "www.cloudposse.com"]

@@ -3,14 +3,11 @@ provider "aws" {
 }
 
 module "cdn" {
-  source     = "../../"
-  namespace  = var.namespace
-  stage      = var.stage
-  name       = var.name
-  attributes = var.attributes
-  region     = var.region
+  source = "../../"
 
-  aliases                           = var.aliases
-  origin_domain_name                = var.origin_domain_name
-  parent_zone_name                  = var.parent_zone_name
+  context    = module.this.context
+
+  aliases            = var.aliases
+  origin_domain_name = var.origin_domain_name
+  parent_zone_name   = var.parent_zone_name
 }

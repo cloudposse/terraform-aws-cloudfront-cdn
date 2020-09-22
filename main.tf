@@ -1,32 +1,23 @@
 module "origin_label" {
-  enabled = var.enabled
+  enabled = module.this.enabled ? 1 : 0
 
-  source      = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.17.0"
-  namespace   = var.namespace
-  stage       = var.stage
-  name        = var.name
-  delimiter   = var.delimiter
-  attributes  = compact(concat(var.attributes, ["origin"]))
-  tags        = var.tags
-  environment = var.environment
+  source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.19.2"
+  context    = module.this.context
+  attributes = compact(concat(module.this.attributes, ["origin"]))
 }
 
 resource "aws_cloudfront_origin_access_identity" "default" {
-  count = var.enabled ? 1 : 0
+  count = module.this.enabled ? 1 : 0
 
   comment = module.distribution_label.id
 }
 
 module "logs" {
-  enabled = var.enabled ? true : false
+  enabled = module.this.enabled ? 1 : 0
 
-  source                   = "git::https://github.com/cloudposse/terraform-aws-log-storage.git?ref=tags/0.13.1"
-  namespace                = var.namespace
-  stage                    = var.stage
-  name                     = var.name
-  delimiter                = var.delimiter
-  attributes               = compact(concat(var.attributes, ["origin", "logs"]))
-  tags                     = var.tags
+  source                   = "git::https://github.com/cloudposse/terraform-aws-log-storage.git?ref=tags/0.14.0"
+  context                  = module.this.context
+  attributes               = compact(concat(module.this.attributes, ["origin", "logs"]))
   lifecycle_prefix         = var.log_prefix
   standard_transition_days = var.log_standard_transition_days
   glacier_transition_days  = var.log_glacier_transition_days
@@ -34,20 +25,14 @@ module "logs" {
 }
 
 module "distribution_label" {
-  enabled = var.enabled ? true : false
+  enabled = module.this.enabled ? 1 : 0
 
-  source      = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.17.0"
-  namespace   = var.namespace
-  stage       = var.stage
-  name        = var.name
-  attributes  = var.attributes
-  delimiter   = var.delimiter
-  tags        = var.tags
-  environment = var.environment
+  source  = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.19.2"
+  context = module.this.context
 }
 
 resource "aws_cloudfront_distribution" "default" {
-  count = var.enabled ? 1 : 0
+  count = module.this.enabled ? 1 : 0
 
   enabled             = var.distribution_enabled
   is_ipv6_enabled     = var.is_ipv6_enabled
@@ -168,8 +153,8 @@ resource "aws_cloudfront_distribution" "default" {
 }
 
 module "dns" {
-  source           = "git::https://github.com/cloudposse/terraform-aws-route53-alias.git?ref=tags/0.8.0"
-  enabled          = (var.enabled && var.dns_aliases_enabled) ? true : false
+  source           = "git::https://github.com/cloudposse/terraform-aws-route53-alias.git?ref=tags/0.8.2"
+  enabled          = (module.this.enabled && var.dns_aliases_enabled) ? true : false
   aliases          = var.aliases
   parent_zone_id   = var.parent_zone_id
   parent_zone_name = var.parent_zone_name

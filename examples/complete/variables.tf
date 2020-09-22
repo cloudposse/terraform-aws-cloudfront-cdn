@@ -3,40 +3,6 @@ variable "region" {
   description = "AWS region"
 }
 
-variable "name" {
-  description = "Name  (e.g. `bastion` or `db`)"
-}
-
-variable "namespace" {
-  description = "Namespace (e.g. `cp` or `cloudposse`)"
-}
-
-variable "stage" {
-  description = "Stage (e.g. `prod`, `dev`, `staging`)"
-}
-
-variable "attributes" {
-  type        = list(string)
-  default     = []
-  description = "Additional attributes (e.g. `policy` or `role`)"
-}
-
-variable "tags" {
-  type        = map(string)
-  default     = {}
-  description = "Additional tags (e.g. `map('BusinessUnit','XYZ')`)"
-}
-
-variable "delimiter" {
-  default     = "-"
-  description = "Delimiter to be used between `name`, `namespace`, `stage`, etc."
-}
-
-variable "enabled" {
-  default     = "true"
-  description = "Set to false to prevent the module from creating any resources"
-}
-
 variable "dns_aliases_enabled" {
   default     = "true"
   description = "Set to false to prevent dns records for aliases from being created"

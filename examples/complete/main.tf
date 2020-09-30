@@ -10,7 +10,7 @@ module "cdn" {
   attributes = var.attributes
   region     = var.region
 
-  aliases                           = var.aliases
-  origin_domain_name                = var.origin_domain_name
-  parent_zone_name                  = var.parent_zone_name
+  aliases            = var.aliases
+  origin_domain_name = var.origin_domain_name
+  parent_zone_name   = var.parent_zone_name
 }

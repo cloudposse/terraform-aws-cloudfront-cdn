@@ -1,4 +1,3 @@
-<!-- markdownlint-disable -->
 ## Requirements
 
 | Name | Version |
@@ -76,4 +75,3 @@
 | cf\_origin\_access\_identity | A shortcut to the full path for the origin access identity to use in CloudFront |
 | cf\_status | Current status of the distribution |
 
-<!-- markdownlint-restore -->

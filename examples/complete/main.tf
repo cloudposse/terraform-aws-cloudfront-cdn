@@ -8,7 +8,6 @@ module "cdn" {
   stage      = var.stage
   name       = var.name
   attributes = var.attributes
-  region     = var.region
 
   aliases            = var.aliases
   origin_domain_name = var.origin_domain_name

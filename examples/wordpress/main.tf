@@ -20,7 +20,6 @@ module "cdn" {
   namespace  = "cp"
   stage      = "prod"
   name       = "wordpress"
-  region     = "us-east-2"
   attributes = ["cloudposse.com"]
 
   aliases                           = ["cloudposse.com", "www.cloudposse.com"]

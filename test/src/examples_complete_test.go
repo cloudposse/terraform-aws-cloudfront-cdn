@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/gruntwork-io/terratest/modules/terraform"
+	"github.com/stretchr/testify/assert"
 )
 
 var letterRunes = []rune("abcdefghijklmnopqrstuvwxyz1234567890")

@@ -24,8 +24,6 @@ func RandStringRunes(n int) string {
 func TestExamplesComplete(t *testing.T) {
 	t.Parallel()
 
-	testNamePrefix := "eg-test"
-
 	terraformOptions := &terraform.Options{
 		// The path to where our Terraform code is located
 		TerraformDir: "../../examples/complete",

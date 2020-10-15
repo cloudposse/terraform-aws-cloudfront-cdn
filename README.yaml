@@ -31,9 +31,6 @@ github_repo: cloudposse/terraform-aws-cloudfront-cdn
 
 # Badges to display
 badges:
-  - name: "Build Status"
-    image: "https://travis-ci.org/cloudposse/terraform-aws-cloudfront-cdn.svg?branch=master"
-    url: "https://travis-ci.org/cloudposse/terraform-aws-cloudfront-cdn"
   - name: "Latest Release"
     image: "https://img.shields.io/github/release/cloudposse/terraform-aws-cloudfront-cdn.svg"
     url: "https://github.com/cloudposse/terraform-aws-cloudfront-cdn/releases/latest"
@@ -60,7 +57,7 @@ related:
 
 # Short description of this project
 description: |-
-  Terraform Module that implements a CloudFront Distribution (CDN) for a custom origin (e.g. website) and [ships logs to a bucket](https://github.com/cloudposse/terraform-aws-log-storage). 
+  Terraform Module that implements a CloudFront Distribution (CDN) for a custom origin (e.g. website) and [ships logs to a bucket](https://github.com/cloudposse/terraform-aws-log-storage).
 
   If you need to accelerate an S3 bucket, we suggest using [`terraform-aws-cloudfront-s3-cdn`](https://github.com/cloudposse/terraform-aws-cloudfront-s3-cdn) instead.
 
@@ -74,9 +71,9 @@ usage: |-
     namespace          = "cp"
     stage              = "prod"
     name               = "app"
-    aliases            = ["cloudposse.com", "www.cloudposse.com"]
-    parent_zone_name   = "cloudposse.com"
-    origin_domain_name = "origin.cloudposse.com"
+    aliases            = ["example.com", "www.example.com"]
+    parent_zone_name   = "example.com"
+    origin_domain_name = "origin.example.com"
   }
   ```
 

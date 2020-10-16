@@ -10,7 +10,7 @@ name = "cdn"
 
 dns_aliases_enabled = false
 
-aliases = null
+aliases = []
 
 origin_domain_name = "example.com"
 

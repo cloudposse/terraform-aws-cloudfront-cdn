@@ -8,7 +8,9 @@ stage = "test"
 
 name = "cdn"
 
-aliases = ["test-cdn.cloudposse.co"]
+dns_aliases_enabled = false
+
+aliases = null
 
 origin_domain_name = "example.com"
 

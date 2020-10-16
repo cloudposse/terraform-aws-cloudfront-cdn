@@ -145,7 +145,7 @@ Available targets:
 | default\_root\_object | Object that CloudFront return when requests the root URL | `string` | `"index.html"` | no |
 | default\_ttl | Default amount of time (in seconds) that an object is in a CloudFront cache | `number` | `60` | no |
 | delimiter | Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes`.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
-| distribution\_enabled | Set to true if you want CloudFront to begin processing requests as soon as the distribution is created, or to false if you do not want CloudFront to begin processing requests after the distribution is created. | `bool` | `true` | no |
+| distribution\_enabled | Set to `true` if you want CloudFront to begin processing requests as soon as the distribution is created, or to false if you do not want CloudFront to begin processing requests after the distribution is created. | `bool` | `true` | no |
 | dns\_aliases\_enabled | Set to false to prevent dns records for aliases from being created | `bool` | `true` | no |
 | enabled | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | environment | Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
@@ -192,11 +192,11 @@ Available targets:
 | Name | Description |
 |------|-------------|
 | cf\_aliases | Extra CNAMEs of AWS CloudFront |
-| cf\_arn | ID of AWS CloudFront distribution |
+| cf\_arn | ARN of CloudFront distribution |
 | cf\_domain\_name | Domain name corresponding to the distribution |
 | cf\_etag | Current version of the distribution's information |
-| cf\_hosted\_zone\_id | CloudFront Route 53 zone ID |
-| cf\_id | ID of AWS CloudFront distribution |
+| cf\_hosted\_zone\_id | CloudFront Route 53 Zone ID |
+| cf\_id | ID of CloudFront distribution |
 | cf\_origin\_access\_identity | A shortcut to the full path for the origin access identity to use in CloudFront |
 | cf\_status | Current status of the distribution |
 

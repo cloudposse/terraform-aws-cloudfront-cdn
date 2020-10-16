@@ -1,11 +1,11 @@
 output "cf_id" {
   value       = try(aws_cloudfront_distribution.default[0].id, "")
-  description = "ID of AWS CloudFront distribution"
+  description = "ID of CloudFront distribution"
 }
 
 output "cf_arn" {
   value       = try(aws_cloudfront_distribution.default[0].arn, "")
-  description = "ID of AWS CloudFront distribution"
+  description = "ARN of CloudFront distribution"
 }
 
 output "cf_aliases" {
@@ -30,7 +30,7 @@ output "cf_etag" {
 
 output "cf_hosted_zone_id" {
   value       = try(aws_cloudfront_distribution.default[0].hosted_zone_id, "")
-  description = "CloudFront Route 53 zone ID"
+  description = "CloudFront Route 53 Zone ID"
 }
 
 output "cf_origin_access_identity" {

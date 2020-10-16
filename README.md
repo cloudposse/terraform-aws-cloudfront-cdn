@@ -79,7 +79,7 @@ module "cdn" {
   namespace          = "eg"
   stage              = "prod"
   name               = "app"
-  aliases            = ["example.com", "www.example.com"]
+  aliases            = ["www.example.net"]
   origin_domain_name = "origin.example.com"
   parent_zone_name   = "example.net"
 }

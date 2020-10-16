@@ -27,7 +27,7 @@ func TestExamplesComplete(t *testing.T) {
 	// Run `terraform output` to get the value of an output variable
 	cfDomainName := terraform.Output(t, terraformOptions, "cf_domain_name")
 	// Verify we're getting back the outputs we expect
-	assert.Equal(t, "example.com", cfDomainName)
+	assert.Contains(t, cfDomainName, ".cloudfront.net")
 
 	// Run `terraform output` to get the value of an output variable
 	cfArn := terraform.Output(t, terraformOptions, "cf_arn")

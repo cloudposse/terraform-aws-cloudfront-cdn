@@ -41,7 +41,7 @@ resource "aws_cloudfront_distribution" "default" {
 
   aliases = var.aliases
 
-  dynamic "custom_error_response" {
+  dynamic custom_error_response {
     for_each = var.custom_error_response
     content {
       error_caching_min_ttl = lookup(custom_error_response.value, "error_caching_min_ttl", null)
@@ -96,7 +96,7 @@ resource "aws_cloudfront_distribution" "default" {
     max_ttl                = var.max_ttl
   }
 
-  dynamic "ordered_cache_behavior" {
+  dynamic ordered_cache_behavior {
     for_each = var.ordered_cache
 
     content {

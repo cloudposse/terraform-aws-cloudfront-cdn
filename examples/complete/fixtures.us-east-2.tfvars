@@ -8,8 +8,8 @@ stage = "test"
 
 name = "cdn"
 
-aliases = ["example.com", "www.example.com"]
+aliases = ["test-cdn.cloudposse.co"]
 
-origin_domain_name = "origin.example.com"
+origin_domain_name = "example.com"
 
 parent_zone_name = "testing.cloudposse.co"

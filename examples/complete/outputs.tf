@@ -37,4 +37,3 @@ output "cf_origin_access_identity" {
   value       = module.cdn.cf_origin_access_identity
   description = "A shortcut to the full path for the origin access identity to use in CloudFront"
 }
-

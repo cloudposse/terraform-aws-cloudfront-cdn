@@ -3,13 +3,15 @@
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.12 |
+| terraform | >= 0.12.0 |
+| aws | >= 2.0 |
+| local | >= 1.2 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | n/a |
+| aws | >= 2.0 |
 
 ## Inputs
 
@@ -65,6 +67,7 @@
 | regex\_replace\_chars | Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | stage | Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | tags | Additional tags (e.g. `map('BusinessUnit','XYZ')` | `map(string)` | `{}` | no |
+| trusted\_signers | List of AWS account IDs (or self) that you want to allow to create signed URLs for private content | `list(string)` | `[]` | no |
 | viewer\_minimum\_protocol\_version | The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections. | `string` | `"TLSv1"` | no |
 | viewer\_protocol\_policy | allow-all, redirect-to-https | `string` | `"redirect-to-https"` | no |
 | web\_acl\_id | ID of the AWS WAF web ACL that is associated with the distribution | `string` | `""` | no |

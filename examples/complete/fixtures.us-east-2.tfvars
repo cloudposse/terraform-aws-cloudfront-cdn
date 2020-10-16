@@ -2,16 +2,14 @@ enabled = true
 
 region = "us-east-2"
 
-availability_zones = ["us-east-2a"]
-
-name = "cdn"
-
 namespace = "eg"
 
 stage = "test"
+
+name = "cdn"
 
 aliases = ["example.com", "www.example.com"]
 
 origin_domain_name = "origin.example.com"
 
-parent_zone_name = "example.com"
+parent_zone_name = "testing.cloudposse.co"

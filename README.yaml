@@ -49,7 +49,7 @@ related:
     description: "Terraform module to provision an AWS CloudTrail and an encrypted S3 bucket with versioning to store CloudTrail logs"
     url: "https://github.com/cloudposse/terraform-aws-cloudtrail"
   - name: "terraform-aws-s3-website"
-    description: "Terraform module to provision S3-backed Websites"
+    description: "Terraform module to provision S3-backed websites"
     url: "https://github.com/cloudposse/terraform-aws-s3-website"
   - name: "terraform-root-modules/aws/docs"
     description: "Reference implementation combining `terraform-aws-s3-website` with `terraform-aws-cdn`"
@@ -63,22 +63,25 @@ description: |-
 
 # How to use this project
 usage: |-
-  Basic usage:
+  For a complete example, see [examples/complete](examples/complete).
+
+  For automated tests of the complete example using [bats](https://github.com/bats-core/bats-core)
+  and [Terratest](https://github.com/gruntwork-io/terratest) (which tests and deploys the example on AWS), see [test](test).
 
   ```hcl
   module "cdn" {
     source             = "git::https://github.com/cloudposse/terraform-aws-cloudfront-cdn.git?ref=master"
-    namespace          = "cp"
+    namespace          = "eg"
     stage              = "prod"
     name               = "app"
     aliases            = ["example.com", "www.example.com"]
-    parent_zone_name   = "example.com"
     origin_domain_name = "origin.example.com"
+    parent_zone_name   = "example.net"
   }
   ```
 
 
-  Complete example of setting up CloudFront Distribution with Cache Behaviors for a WordPress site: [`examples/wordpress`](examples/wordpress/main.tf)
+  Complete example of setting up CloudFront Distribution with Cache Behaviors for a WordPress site: [`examples/wordpress`](examples/wordpress)
 
 
   ### Generating ACM Certificate

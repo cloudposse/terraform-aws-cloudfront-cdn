@@ -17,7 +17,6 @@ locals {
 
 module "cdn" {
   source     = "../../"
-  context    = module.this.context
   name       = "wordpress"
   attributes = ["cloudposse.com"]
 
@@ -48,4 +47,6 @@ module "cdn" {
     merge(local.wp_nocache_behavior, map("path_pattern", "wp-cron.php")),
     merge(local.wp_nocache_behavior, map("path_pattern", "xmlrpc.php"))
   ]
+
+  context = module.this.context
 }

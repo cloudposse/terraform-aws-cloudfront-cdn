@@ -245,3 +245,8 @@ of the vars in this file apply only to the default cache. Put value `""` on fiel
 DESCRIPTION
 }
 
+variable "trusted_signers" {
+  type        = list(string)
+  default     = []
+  description = "List of AWS account IDs (or self) that you want to allow to create signed URLs for private content"
+}

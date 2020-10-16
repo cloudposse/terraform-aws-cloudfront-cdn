@@ -1,24 +1,10 @@
 package test
 
 import (
-	"math/rand"
-	"testing"
-	"time"
-
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/stretchr/testify/assert"
+	"testing"
 )
-
-var letterRunes = []rune("abcdefghijklmnopqrstuvwxyz1234567890")
-
-func RandStringRunes(n int) string {
-	rand.Seed(time.Now().UnixNano())
-	b := make([]rune, n)
-	for i := range b {
-		b[i] = letterRunes[rand.Intn(len(letterRunes))]
-	}
-	return string(b)
-}
 
 // Test the Terraform module in examples/complete using Terratest.
 func TestExamplesComplete(t *testing.T) {

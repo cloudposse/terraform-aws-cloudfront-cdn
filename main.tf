@@ -15,6 +15,7 @@ resource "aws_cloudfront_origin_access_identity" "default" {
 module "logs" {
   source = "git::https://github.com/cloudposse/terraform-aws-log-storage.git?ref=tags/0.14.0"
 
+  enabled                  = module.this.enabled && length(var.log_bucket_fqdn) == 0
   attributes               = compact(concat(module.this.attributes, ["origin", "logs"]))
   lifecycle_prefix         = var.log_prefix
   standard_transition_days = var.log_standard_transition_days
@@ -35,7 +36,7 @@ resource "aws_cloudfront_distribution" "default" {
 
   logging_config {
     include_cookies = var.log_include_cookies
-    bucket          = module.logs.bucket_domain_name
+    bucket          = length(var.log_bucket_fqdn) > 0 ? var.log_bucket_fqdn : module.logs.bucket_domain_name
     prefix          = var.log_prefix
   }
 

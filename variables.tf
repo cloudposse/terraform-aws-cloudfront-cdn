@@ -127,6 +127,12 @@ variable "log_prefix" {
   description = "Path of logs in S3 bucket"
 }
 
+variable "log_bucket_fqdn" {
+  type        = string
+  default     = ""
+  description = "Optional fqdn of logging bucket, if not supplied a bucket will be generated."
+}
+
 variable "log_standard_transition_days" {
   type        = number
   description = "Number of days to persist in the standard storage tier before moving to the glacier tier"

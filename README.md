@@ -158,6 +158,7 @@ Available targets:
 | id\_length\_limit | Limit `id` to this many characters.<br>Set to `0` for unlimited length.<br>Set to `null` for default, which is `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
 | is\_ipv6\_enabled | State of CloudFront IPv6 | `bool` | `true` | no |
 | label\_order | The naming order of the id output and Name tag.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 5 elements, but at least one must be present. | `list(string)` | `null` | no |
+| log\_bucket\_fqdn | Optional fqdn of logging bucket, if not supplied a bucket will be generated. | `string` | `""` | no |
 | log\_expiration\_days | Number of days after which to expunge the objects | `number` | `90` | no |
 | log\_glacier\_transition\_days | Number of days after which to move the data to the glacier storage tier | `number` | `60` | no |
 | log\_include\_cookies | Include cookies in access logs | `bool` | `false` | no |

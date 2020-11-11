@@ -155,6 +155,7 @@ module "dns" {
   parent_zone_name = var.parent_zone_name
   target_dns_name  = try(aws_cloudfront_distribution.default[0].domain_name, "")
   target_zone_id   = try(aws_cloudfront_distribution.default[0].hosted_zone_id, "")
+  ipv6_enabled     = var.is_ipv6_enabled
 
   context = module.this.context
 }

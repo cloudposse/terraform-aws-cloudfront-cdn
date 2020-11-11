@@ -37,3 +37,8 @@ output "cf_origin_access_identity" {
   value       = try(aws_cloudfront_origin_access_identity.default[0].cloudfront_access_identity_path, "")
   description = "A shortcut to the full path for the origin access identity to use in CloudFront"
 }
+
+output "logs" {
+  value       = module.logs
+  description = "Logs resource"
+}

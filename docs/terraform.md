@@ -49,6 +49,7 @@
 | log\_include\_cookies | Include cookies in access logs | `bool` | `false` | no |
 | log\_prefix | Path of logs in S3 bucket | `string` | `""` | no |
 | log\_standard\_transition\_days | Number of days to persist in the standard storage tier before moving to the glacier tier | `number` | `30` | no |
+| logging\_enabled | When true, access logs will be sent to a newly created s3 bucket | `bool` | `true` | no |
 | max\_ttl | Maximum amount of time (in seconds) that an object is in a CloudFront cache | `number` | `31536000` | no |
 | min\_ttl | Minimum amount of time that you want objects to stay in CloudFront caches | `number` | `0` | no |
 | name | Solution name, e.g. 'app' or 'jenkins' | `string` | `null` | no |
@@ -85,5 +86,6 @@
 | cf\_id | ID of CloudFront distribution |
 | cf\_origin\_access\_identity | A shortcut to the full path for the origin access identity to use in CloudFront |
 | cf\_status | Current status of the distribution |
+| logs | Logs resource |
 
 <!-- markdownlint-restore -->

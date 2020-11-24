@@ -68,6 +68,16 @@ resource "aws_cloudfront_distribution" "default" {
       origin_keepalive_timeout = var.origin_keepalive_timeout
       origin_read_timeout      = var.origin_read_timeout
     }
+
+    dynamic custom_header {
+      for_each = var.custom_header
+      content {
+        name  = custom_header.value.name
+        value = custom_header.value.value
+      }
+    }
+
+
   }
 
   viewer_certificate {

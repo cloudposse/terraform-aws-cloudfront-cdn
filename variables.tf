@@ -36,6 +36,16 @@ variable "custom_error_response" {
   default     = []
 }
 
+variable "custom_header" {
+  type = list(object({
+    name  = string
+    value = string
+  }))
+
+  description = "List of one or more custom headers passed to the origin"
+  default     = []
+}
+
 variable "web_acl_id" {
   type        = string
   description = "ID of the AWS WAF web ACL that is associated with the distribution"

@@ -33,6 +33,16 @@ variable "custom_error_response" {
   default     = []
 }
 
+variable "custom_header" {
+  type = list(object({
+    name  = string
+    value = string
+  }))
+
+  description = "List of one or more custom headers passed to the origin"
+  default     = []
+}
+
 variable "web_acl_id" {
   description = "(Optional) - Web ACL ID that can be attached to the Cloudfront distribution"
   default     = ""

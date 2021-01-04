@@ -1,5 +1,6 @@
 module "origin_label" {
-  source = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.19.2"
+  source  = "cloudposse/label/null"
+  version = "0.19.2"
 
   attributes = compact(concat(module.this.attributes, ["origin"]))
 
@@ -13,7 +14,8 @@ resource "aws_cloudfront_origin_access_identity" "default" {
 }
 
 module "logs" {
-  source = "git::https://github.com/cloudposse/terraform-aws-log-storage.git?ref=tags/0.14.0"
+  source  = "cloudposse/log-storage/aws"
+  version = "0.14.0"
 
   enabled                  = module.this.enabled && var.logging_enabled && length(var.log_bucket_fqdn) == 0
   attributes               = compact(concat(module.this.attributes, ["origin", "logs"]))
@@ -160,7 +162,8 @@ resource "aws_cloudfront_distribution" "default" {
 }
 
 module "dns" {
-  source = "git::https://github.com/cloudposse/terraform-aws-route53-alias.git?ref=tags/0.9.0"
+  source  = "cloudposse/route53-alias/aws"
+  version = "0.9.0"
 
   enabled          = (module.this.enabled && var.dns_aliases_enabled) ? true : false
   aliases          = var.aliases

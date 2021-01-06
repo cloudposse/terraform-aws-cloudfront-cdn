@@ -1,7 +1,8 @@
 module "origin_label" {
-  source = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.19.2"
+  source  = "cloudposse/label/null"
+  version = "0.22.1"
 
-  attributes = compact(concat(module.this.attributes, ["origin"]))
+  attributes = ["origin"]
 
   context = module.this.context
 }
@@ -13,7 +14,8 @@ resource "aws_cloudfront_origin_access_identity" "default" {
 }
 
 module "logs" {
-  source = "git::https://github.com/cloudposse/terraform-aws-log-storage.git?ref=tags/0.14.0"
+  source  = "cloudposse/s3-log-storage/aws"
+  version = "0.16.0"
 
   enabled                  = module.this.enabled && var.logging_enabled && length(var.log_bucket_fqdn) == 0
   attributes               = compact(concat(module.this.attributes, ["origin", "logs"]))
@@ -45,7 +47,7 @@ resource "aws_cloudfront_distribution" "default" {
 
   aliases = var.aliases
 
-  dynamic custom_error_response {
+  dynamic "custom_error_response" {
     for_each = var.custom_error_response
     content {
       error_caching_min_ttl = lookup(custom_error_response.value, "error_caching_min_ttl", null)
@@ -69,7 +71,7 @@ resource "aws_cloudfront_distribution" "default" {
       origin_read_timeout      = var.origin_read_timeout
     }
 
-    dynamic custom_header {
+    dynamic "custom_header" {
       for_each = var.custom_header
       content {
         name  = custom_header.value.name
@@ -110,7 +112,7 @@ resource "aws_cloudfront_distribution" "default" {
     max_ttl                = var.max_ttl
   }
 
-  dynamic ordered_cache_behavior {
+  dynamic "ordered_cache_behavior" {
     for_each = var.ordered_cache
 
     content {
@@ -160,7 +162,8 @@ resource "aws_cloudfront_distribution" "default" {
 }
 
 module "dns" {
-  source = "git::https://github.com/cloudposse/terraform-aws-route53-alias.git?ref=tags/0.9.0"
+  source  = "cloudposse/route53-alias/aws"
+  version = "0.10.0"
 
   enabled          = (module.this.enabled && var.dns_aliases_enabled) ? true : false
   aliases          = var.aliases

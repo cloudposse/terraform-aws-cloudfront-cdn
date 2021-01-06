@@ -16,7 +16,7 @@ resource "aws_cloudfront_origin_access_identity" "default" {
 module "logs" {
   source  = "cloudposse/s3-log-storage/aws"
   version = "0.16.0"
-  
+
   enabled                  = module.this.enabled && var.logging_enabled && length(var.log_bucket_fqdn) == 0
   attributes               = compact(concat(module.this.attributes, ["origin", "logs"]))
   lifecycle_prefix         = var.log_prefix
@@ -47,7 +47,7 @@ resource "aws_cloudfront_distribution" "default" {
 
   aliases = var.aliases
 
-  dynamic custom_error_response {
+  dynamic "custom_error_response" {
     for_each = var.custom_error_response
     content {
       error_caching_min_ttl = lookup(custom_error_response.value, "error_caching_min_ttl", null)
@@ -71,7 +71,7 @@ resource "aws_cloudfront_distribution" "default" {
       origin_read_timeout      = var.origin_read_timeout
     }
 
-    dynamic custom_header {
+    dynamic "custom_header" {
       for_each = var.custom_header
       content {
         name  = custom_header.value.name
@@ -112,7 +112,7 @@ resource "aws_cloudfront_distribution" "default" {
     max_ttl                = var.max_ttl
   }
 
-  dynamic ordered_cache_behavior {
+  dynamic "ordered_cache_behavior" {
     for_each = var.ordered_cache
 
     content {

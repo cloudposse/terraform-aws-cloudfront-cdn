@@ -14,9 +14,9 @@ resource "aws_cloudfront_origin_access_identity" "default" {
 }
 
 module "logs" {
-  source  = "cloudposse/log-storage/aws"
-  version = "0.14.0"
-
+  source  = "cloudposse/s3-log-storage/aws"
+  version = "0.16.0"
+  
   enabled                  = module.this.enabled && var.logging_enabled && length(var.log_bucket_fqdn) == 0
   attributes               = compact(concat(module.this.attributes, ["origin", "logs"]))
   lifecycle_prefix         = var.log_prefix

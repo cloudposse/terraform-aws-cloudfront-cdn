@@ -1,8 +1,8 @@
 module "origin_label" {
   source  = "cloudposse/label/null"
-  version = "0.19.2"
+  version = "0.22.1"
 
-  attributes = compact(concat(module.this.attributes, ["origin"]))
+  attributes = ["origin"]
 
   context = module.this.context
 }
@@ -163,7 +163,7 @@ resource "aws_cloudfront_distribution" "default" {
 
 module "dns" {
   source  = "cloudposse/route53-alias/aws"
-  version = "0.9.0"
+  version = "0.10.0"
 
   enabled          = (module.this.enabled && var.dns_aliases_enabled) ? true : false
   aliases          = var.aliases

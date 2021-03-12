@@ -222,8 +222,8 @@ variable "cached_methods" {
 }
 
 variable "cache_policy_id" {
-  type           = string
-  default        = ""
+  type        = string
+  default     = ""
   description = "ID of the cache policy attached to the cache behavior"
 }
 

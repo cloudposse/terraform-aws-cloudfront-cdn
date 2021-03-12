@@ -38,7 +38,7 @@
 | aliases | List of aliases. CAUTION! Names MUSTN'T contain trailing `.` | `list(string)` | `[]` | no |
 | allowed\_methods | List of allowed methods (e.g. ` GET, PUT, POST, DELETE, HEAD`) for AWS CloudFront | `list(string)` | <pre>[<br>  "DELETE",<br>  "GET",<br>  "HEAD",<br>  "OPTIONS",<br>  "PATCH",<br>  "POST",<br>  "PUT"<br>]</pre> | no |
 | attributes | Additional attributes (e.g. `1`) | `list(string)` | `[]` | no |
-| cache\_policy\_id | n/a | `string` | `""` | no |
+| cache\_policy\_id | ID of the cache policy attached to the cache behavior | `string` | `""` | no |
 | cached\_methods | List of cached methods (e.g. ` GET, PUT, POST, DELETE, HEAD`) | `list(string)` | <pre>[<br>  "GET",<br>  "HEAD"<br>]</pre> | no |
 | comment | Comment for the origin access identity | `string` | `"Managed by Terraform"` | no |
 | compress | Whether you want CloudFront to automatically compress content for web requests that include Accept-Encoding: gzip in the request header (default: false) | `bool` | `false` | no |

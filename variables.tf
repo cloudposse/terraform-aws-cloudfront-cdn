@@ -224,7 +224,7 @@ variable "cached_methods" {
 variable "cache_policy_id" {
   type           = string
   default        = ""
-  desdescription = "ID of the cache policy attached to the cache behavior"
+  description = "ID of the cache policy attached to the cache behavior"
 }
 
 variable "default_ttl" {

@@ -221,6 +221,12 @@ variable "cached_methods" {
   description = "List of cached methods (e.g. ` GET, PUT, POST, DELETE, HEAD`)"
 }
 
+variable "cache_policy_id" {
+  type = string
+  default = ""
+  desdescription = "ID of the cache policy attached to the cache behavior"
+}
+
 variable "default_ttl" {
   type        = number
   default     = 60
@@ -273,6 +279,7 @@ variable "ordered_cache" {
 
     allowed_methods = list(string)
     cached_methods  = list(string)
+    cache_policy_id = string
     compress        = bool
 
     viewer_protocol_policy = string

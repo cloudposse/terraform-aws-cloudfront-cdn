@@ -13,6 +13,22 @@
 |------|---------|
 | aws | >= 2.0 |
 
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| dns | cloudposse/route53-alias/aws | 0.12.0 |
+| logs | cloudposse/s3-log-storage/aws | 0.20.0 |
+| origin_label | cloudposse/label/null | 0.24.1 |
+| this | cloudposse/label/null | 0.24.1 |
+
+## Resources
+
+| Name |
+|------|
+| [aws_cloudfront_distribution](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution) |
+| [aws_cloudfront_origin_access_identity](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_origin_access_identity) |
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
@@ -48,6 +64,7 @@
 | label\_value\_case | The letter case of output label values (also used in `tags` and `id`).<br>Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br>Default value: `lower`. | `string` | `null` | no |
 | log\_bucket\_fqdn | Optional fqdn of logging bucket, if not supplied a bucket will be generated. | `string` | `""` | no |
 | log\_expiration\_days | Number of days after which to expunge the objects | `number` | `90` | no |
+| log\_force\_destroy | Applies to log bucket created by this module only. If true, all objects will be deleted from the bucket on destroy, so that the bucket can be destroyed without error. These objects are not recoverable. | `bool` | `false` | no |
 | log\_glacier\_transition\_days | Number of days after which to move the data to the glacier storage tier | `number` | `60` | no |
 | log\_include\_cookies | Include cookies in access logs | `bool` | `false` | no |
 | log\_prefix | Path of logs in S3 bucket | `string` | `""` | no |
@@ -90,5 +107,4 @@
 | cf\_origin\_access\_identity | A shortcut to the full path for the origin access identity to use in CloudFront |
 | cf\_status | Current status of the distribution |
 | logs | Logs resource |
-
 <!-- markdownlint-restore -->

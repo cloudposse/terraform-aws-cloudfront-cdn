@@ -112,7 +112,7 @@ variable "comment" {
 variable "logging_enabled" {
   type        = bool
   default     = true
-  description = "When true, access logs will be sent to a newly created s3 bucket"
+  description = "When true, access logs will be sent to a newly created S3 bucket or bucket specified by log_bucket_fqdn"
 }
 
 variable "log_include_cookies" {

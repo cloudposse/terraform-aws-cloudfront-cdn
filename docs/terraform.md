@@ -65,6 +65,7 @@
 | label\_value\_case | The letter case of output label values (also used in `tags` and `id`).<br>Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br>Default value: `lower`. | `string` | `null` | no |
 | log\_bucket\_fqdn | Optional fqdn of logging bucket, if not supplied a bucket will be generated. | `string` | `""` | no |
 | log\_expiration\_days | Number of days after which to expunge the objects | `number` | `90` | no |
+| log\_force\_destroy | Applies to log bucket created by this module only. If true, all objects will be deleted from the bucket on destroy, so that the bucket can be destroyed without error. These objects are not recoverable. | `bool` | `false` | no |
 | log\_glacier\_transition\_days | Number of days after which to move the data to the glacier storage tier | `number` | `60` | no |
 | log\_include\_cookies | Include cookies in access logs | `bool` | `false` | no |
 | log\_prefix | Path of logs in S3 bucket | `string` | `""` | no |

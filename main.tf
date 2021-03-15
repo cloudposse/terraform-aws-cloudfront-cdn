@@ -23,6 +23,7 @@ module "logs" {
   standard_transition_days = var.log_standard_transition_days
   glacier_transition_days  = var.log_glacier_transition_days
   expiration_days          = var.log_expiration_days
+  force_destroy            = var.log_force_destroy
 
   context = module.this.context
 }

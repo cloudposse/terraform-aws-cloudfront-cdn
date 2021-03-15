@@ -149,6 +149,12 @@ variable "log_bucket_fqdn" {
   description = "Optional fqdn of logging bucket, if not supplied a bucket will be generated."
 }
 
+variable "log_force_destroy" {
+  type        = bool
+  description = "Applies to log bucket created by this module only. If true, all objects will be deleted from the bucket on destroy, so that the bucket can be destroyed without error. These objects are not recoverable."
+  default     = false
+}
+
 variable "log_standard_transition_days" {
   type        = number
   description = "Number of days to persist in the standard storage tier before moving to the glacier tier"

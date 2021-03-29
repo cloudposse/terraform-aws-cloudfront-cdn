@@ -233,6 +233,12 @@ variable "cache_policy_id" {
   description = "ID of the cache policy attached to the cache behavior"
 }
 
+variable "origin_request_policy_id" {
+  type        = string
+  default     = ""
+  description = "ID of the origin request policy attached to the cache behavior"
+}
+
 variable "default_ttl" {
   type        = number
   default     = 60
@@ -283,10 +289,11 @@ variable "ordered_cache" {
     target_origin_id = string
     path_pattern     = string
 
-    allowed_methods = list(string)
-    cached_methods  = list(string)
-    cache_policy_id = string
-    compress        = bool
+    allowed_methods          = list(string)
+    cached_methods           = list(string)
+    cache_policy_id          = string
+    origin_request_policy_id = string
+    compress                 = bool
 
     viewer_protocol_policy = string
     min_ttl                = number

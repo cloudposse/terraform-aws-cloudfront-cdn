@@ -96,13 +96,22 @@ resource "aws_cloudfront_distribution" "default" {
           value = custom_header.value["value"]
         }
       }
-      custom_origin_config {
-        http_port                = lookup(origin.value.custom_origin_config, "http_port", null)
-        https_port               = lookup(origin.value.custom_origin_config, "https_port", null)
-        origin_protocol_policy   = lookup(origin.value.custom_origin_config, "origin_protocol_policy", "https-only")
-        origin_ssl_protocols     = lookup(origin.value.custom_origin_config, "origin_ssl_protocols", ["TLSv1.2"])
-        origin_keepalive_timeout = lookup(origin.value.custom_origin_config, "origin_keepalive_timeout", 60)
-        origin_read_timeout      = lookup(origin.value.custom_origin_config, "origin_read_timeout", 60)
+      dynamic "custom_origin_config" {
+        for_each = lookup(origin.value, "custom_origin_config", null) == null ? [] : [true]
+        content {
+          http_port                = lookup(origin.value.custom_origin_config, "http_port", null)
+          https_port               = lookup(origin.value.custom_origin_config, "https_port", null)
+          origin_protocol_policy   = lookup(origin.value.custom_origin_config, "origin_protocol_policy", "https-only")
+          origin_ssl_protocols     = lookup(origin.value.custom_origin_config, "origin_ssl_protocols", ["TLSv1.2"])
+          origin_keepalive_timeout = lookup(origin.value.custom_origin_config, "origin_keepalive_timeout", 60)
+          origin_read_timeout      = lookup(origin.value.custom_origin_config, "origin_read_timeout", 60)
+        }
+      }
+      dynamic "s3_origin_config" {
+        for_each = lookup(origin.value, "s3_origin_config", null) == null ? [] : [true]
+        content {
+          origin_access_identity = lookup(origin.value.s3_origin_config, "origin_access_identity", null)
+        }
       }
     }
   }

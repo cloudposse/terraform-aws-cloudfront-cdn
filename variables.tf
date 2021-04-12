@@ -328,14 +328,8 @@ variable "custom_origins" {
       name  = string
       value = string
     }))
-    custom_origin_config = object({
-      http_port                = number
-      https_port               = number
-      origin_protocol_policy   = string
-      origin_ssl_protocols     = list(string)
-      origin_keepalive_timeout = number
-      origin_read_timeout      = number
-    })
+    custom_origin_config = map(any)
+    s3_origin_config     = map(any)
   }))
   default     = []
   description = "One or more custom origins for this distribution (multiples allowed). See documentation for configuration options description https://www.terraform.io/docs/providers/aws/r/cloudfront_distribution.html#origin-arguments"

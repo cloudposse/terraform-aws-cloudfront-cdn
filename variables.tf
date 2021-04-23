@@ -229,13 +229,13 @@ variable "cached_methods" {
 
 variable "cache_policy_id" {
   type        = string
-  default     = ""
+  default     = null
   description = "ID of the cache policy attached to the cache behavior"
 }
 
 variable "origin_request_policy_id" {
   type        = string
-  default     = ""
+  default     = null
   description = "ID of the origin request policy attached to the cache behavior"
 }
 

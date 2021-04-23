@@ -133,7 +133,7 @@ resource "aws_cloudfront_distribution" "default" {
 
     dynamic "forwarded_values" {
       # If a cache policy or origin request policy is specified, we cannot include a `forwarded_values` block at all in the API request
-      for_each = var.cache_policy_id == "" || var.origin_request_policy_id == "" ? [true] : []
+      for_each = try(coalesce(var.cache_policy_id), null) == null && try(coalesce(var.origin_request_policy_id), null) == null ? [true] : []
       content {
         headers = var.forward_headers
 
@@ -168,7 +168,7 @@ resource "aws_cloudfront_distribution" "default" {
 
       dynamic "forwarded_values" {
         # If a cache policy or origin request policy is specified, we cannot include a `forwarded_values` block at all in the API request
-        for_each = ordered_cache_behavior.value.cache_policy_id == null || ordered_cache_behavior.value.origin_request_policy_id == null ? [true] : []
+        for_each = try(coalesce(ordered_cache_behavior.value.cache_policy_id), null) == null && try(coalesce(ordered_cache_behavior.value.origin_request_policy_id), null) == null ? [true] : []
         content {
           query_string = ordered_cache_behavior.value.forward_query_string
           headers      = ordered_cache_behavior.value.forward_header_values

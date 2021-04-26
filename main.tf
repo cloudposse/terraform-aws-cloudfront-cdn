@@ -83,6 +83,39 @@ resource "aws_cloudfront_distribution" "default" {
 
   }
 
+  dynamic "origin" {
+    for_each = var.custom_origins
+    content {
+      domain_name = origin.value.domain_name
+      origin_id   = origin.value.origin_id
+      origin_path = lookup(origin.value, "origin_path", "")
+      dynamic "custom_header" {
+        for_each = lookup(origin.value, "custom_headers", [])
+        content {
+          name  = custom_header.value["name"]
+          value = custom_header.value["value"]
+        }
+      }
+      dynamic "custom_origin_config" {
+        for_each = lookup(origin.value, "custom_origin_config", null) == null ? [] : [true]
+        content {
+          http_port                = lookup(origin.value.custom_origin_config, "http_port", null)
+          https_port               = lookup(origin.value.custom_origin_config, "https_port", null)
+          origin_protocol_policy   = lookup(origin.value.custom_origin_config, "origin_protocol_policy", "https-only")
+          origin_ssl_protocols     = lookup(origin.value.custom_origin_config, "origin_ssl_protocols", ["TLSv1.2"])
+          origin_keepalive_timeout = lookup(origin.value.custom_origin_config, "origin_keepalive_timeout", 60)
+          origin_read_timeout      = lookup(origin.value.custom_origin_config, "origin_read_timeout", 60)
+        }
+      }
+      dynamic "s3_origin_config" {
+        for_each = lookup(origin.value, "s3_origin_config", null) == null ? [] : [true]
+        content {
+          origin_access_identity = lookup(origin.value.s3_origin_config, "origin_access_identity", null)
+        }
+      }
+    }
+  }
+
   viewer_certificate {
     acm_certificate_arn            = var.acm_certificate_arn
     ssl_support_method             = "sni-only"
@@ -100,7 +133,7 @@ resource "aws_cloudfront_distribution" "default" {
 
     dynamic "forwarded_values" {
       # If a cache policy or origin request policy is specified, we cannot include a `forwarded_values` block at all in the API request
-      for_each = var.cache_policy_id == "" || var.origin_request_policy_id == "" ? [true] : []
+      for_each = try(coalesce(var.cache_policy_id), null) == null && try(coalesce(var.origin_request_policy_id), null) == null ? [true] : []
       content {
         headers = var.forward_headers
 
@@ -135,7 +168,7 @@ resource "aws_cloudfront_distribution" "default" {
 
       dynamic "forwarded_values" {
         # If a cache policy or origin request policy is specified, we cannot include a `forwarded_values` block at all in the API request
-        for_each = ordered_cache_behavior.value.cache_policy_id == null || ordered_cache_behavior.value.origin_request_policy_id == null ? [true] : []
+        for_each = try(coalesce(ordered_cache_behavior.value.cache_policy_id), null) == null && try(coalesce(ordered_cache_behavior.value.origin_request_policy_id), null) == null ? [true] : []
         content {
           query_string = ordered_cache_behavior.value.forward_query_string
           headers      = ordered_cache_behavior.value.forward_header_values

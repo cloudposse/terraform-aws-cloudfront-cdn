@@ -229,13 +229,13 @@ variable "cached_methods" {
 
 variable "cache_policy_id" {
   type        = string
-  default     = ""
+  default     = null
   description = "ID of the cache policy attached to the cache behavior"
 }
 
 variable "origin_request_policy_id" {
   type        = string
-  default     = ""
+  default     = null
   description = "ID of the origin request policy attached to the cache behavior"
 }
 
@@ -317,6 +317,22 @@ The fields can be described by the other variables in this file. For example, th
 a description in var.lambda_function_association variable earlier in this file. The only difference is that fields on this object are in ordered caches, whereas the rest
 of the vars in this file apply only to the default cache. Put value `""` on field `target_origin_id` to specify default s3 bucket origin.
 DESCRIPTION
+}
+
+variable "custom_origins" {
+  type = list(object({
+    domain_name = string
+    origin_id   = string
+    origin_path = string
+    custom_headers = list(object({
+      name  = string
+      value = string
+    }))
+    custom_origin_config = map(any)
+    s3_origin_config     = map(any)
+  }))
+  default     = []
+  description = "One or more custom origins for this distribution (multiples allowed). See documentation for configuration options description https://www.terraform.io/docs/providers/aws/r/cloudfront_distribution.html#origin-arguments"
 }
 
 variable "trusted_signers" {

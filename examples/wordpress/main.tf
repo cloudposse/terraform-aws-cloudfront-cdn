@@ -12,6 +12,8 @@ locals {
     forward_header_values       = ["*"]
     forward_query_string        = true
     lambda_function_association = []
+    cache_policy_id             = ""
+    origin_request_policy_id    = ""
   }
 }
 

@@ -152,6 +152,23 @@ resource "aws_cloudfront_distribution" "default" {
     max_ttl                = var.max_ttl
   }
 
+  dynamic "lambda_function_association" {
+    for_each = var.lambda_function_association
+    content {
+      event_type   = lambda_function_association.value.event_type
+      include_body = lookup(lambda_function_association.value, "include_body", null)
+      lambda_arn   = lambda_function_association.value.lambda_arn
+    }
+  }
+
+  dynamic "function_association" {
+    for_each = var.function_association
+    content {
+      event_type   = function_association.value.event_type
+      function_arn = function_association.value.function_arn
+    }
+  }
+
   dynamic "ordered_cache_behavior" {
     for_each = var.ordered_cache
 
@@ -190,6 +207,14 @@ resource "aws_cloudfront_distribution" "default" {
           event_type   = lambda_function_association.value.event_type
           include_body = lookup(lambda_function_association.value, "include_body", null)
           lambda_arn   = lambda_function_association.value.lambda_arn
+        }
+      }
+
+      dynamic "function_association" {
+        for_each = lookup(ordered_cache_behavior.value, "function_association", [])
+        content {
+          event_type   = function_association.value.event_type
+          function_arn = function_association.value.function_arn
         }
       }
     }

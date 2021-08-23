@@ -309,6 +309,11 @@ variable "ordered_cache" {
       include_body = bool
       lambda_arn   = string
     }))
+
+    function_association = list(object({
+      event_type   = string
+      function_arn = string
+    }))
   }))
   default     = []
   description = <<DESCRIPTION
@@ -348,4 +353,29 @@ variable "trusted_signers" {
   type        = list(string)
   default     = []
   description = "List of AWS account IDs (or self) that you want to allow to create signed URLs for private content"
+}
+
+variable "lambda_function_association" {
+  type = list(object({
+    event_type   = string
+    include_body = bool
+    lambda_arn   = string
+  }))
+
+  description = "A config block that triggers a Lambda@Edge function with specific actions"
+  default     = []
+}
+
+variable "function_association" {
+  type = list(object({
+    event_type   = string
+    function_arn = string
+  }))
+
+  description = <<-EOT
+    A config block that triggers a CloudFront function with specific actions.
+    See the [aws_cloudfront_distribution](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#function-association)
+    documentation for more information.
+  EOT
+  default     = []
 }

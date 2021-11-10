@@ -124,12 +124,13 @@ resource "aws_cloudfront_distribution" "default" {
   }
 
   default_cache_behavior {
-    allowed_methods          = var.allowed_methods
-    cached_methods           = var.cached_methods
-    cache_policy_id          = var.cache_policy_id
-    origin_request_policy_id = var.origin_request_policy_id
-    target_origin_id         = module.this.id
-    compress                 = var.compress
+    allowed_methods            = var.allowed_methods
+    cached_methods             = var.cached_methods
+    cache_policy_id            = var.cache_policy_id
+    origin_request_policy_id   = var.origin_request_policy_id
+    target_origin_id           = module.this.id
+    compress                   = var.compress
+    response_headers_policy_id = var.response_headers_policy_id
 
     dynamic "forwarded_values" {
       # If a cache policy or origin request policy is specified, we cannot include a `forwarded_values` block at all in the API request

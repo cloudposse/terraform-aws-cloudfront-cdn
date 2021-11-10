@@ -239,6 +239,12 @@ variable "origin_request_policy_id" {
   description = "ID of the origin request policy attached to the cache behavior"
 }
 
+variable "response_headers_policy_id" {
+  type        = string
+  description = "The identifier for a response headers policy"
+  default     = ""
+}
+
 variable "default_ttl" {
   type        = number
   default     = 60

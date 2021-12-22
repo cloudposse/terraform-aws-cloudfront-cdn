@@ -85,7 +85,7 @@ variable "origin_protocol_policy" {
 
 variable "origin_shield_enabled" {
   type        = bool
-  description = "Use the CloudFront Origin Shield"
+  description = "Whether to use CloudFront Origin Shield"
   default     = false
 }
 

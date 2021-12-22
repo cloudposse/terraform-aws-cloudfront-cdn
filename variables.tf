@@ -91,7 +91,7 @@ variable "origin_shield_enabled" {
 
 variable "origin_shield_region" {
   type        = string
-  description = "The AWS Region for the Origin Shield. Example: us-east-1"
+  description = "The AWS Region for the Origin Shield"
   default     = "us-east-1"
 }
 

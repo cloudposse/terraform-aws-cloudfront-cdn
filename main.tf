@@ -74,7 +74,7 @@ resource "aws_cloudfront_distribution" "default" {
     }
 
     dynamic "origin_shield" {
-      for_each = var.origin_shield ? ["true"] : []
+      for_each = var.origin_shield != null ? ["true"] : []
       content {
         enabled              = var.origin_shield.enabled
         origin_shield_region = var.origin_shield.region

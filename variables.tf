@@ -83,6 +83,15 @@ variable "origin_protocol_policy" {
   default     = "match-viewer"
 }
 
+variable "origin_shield" {
+  type = object({
+    enabled = bool
+    region  = string
+  })
+  description = "The CloudFront Origin Shield settings"
+  default     = null
+}
+
 variable "origin_ssl_protocols" {
   description = "The SSL/TLS protocols that you want CloudFront to use when communicating with your origin over HTTPS"
   type        = list(string)

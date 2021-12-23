@@ -29,6 +29,7 @@ module "logs" {
 }
 
 resource "aws_cloudfront_distribution" "default" {
+  #bridgecrew:skip=BC_AWS_GENERAL_27:Skipping `Ensure CloudFront distribution has WAF enabled` because AWS WAF is indeed configurable and is managed via `var.web_acl_id`.
   count = module.this.enabled ? 1 : 0
 
   enabled             = var.distribution_enabled
@@ -70,6 +71,14 @@ resource "aws_cloudfront_distribution" "default" {
       origin_ssl_protocols     = var.origin_ssl_protocols
       origin_keepalive_timeout = var.origin_keepalive_timeout
       origin_read_timeout      = var.origin_read_timeout
+    }
+
+    dynamic "origin_shield" {
+      for_each = var.origin_shield != null ? ["true"] : []
+      content {
+        enabled              = var.origin_shield.enabled
+        origin_shield_region = var.origin_shield.region
+      }
     }
 
     dynamic "custom_header" {

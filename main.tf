@@ -73,9 +73,12 @@ resource "aws_cloudfront_distribution" "default" {
       origin_read_timeout      = var.origin_read_timeout
     }
 
-    origin_shield {
-      enabled              = var.origin_shield_enabled
-      origin_shield_region = var.origin_shield_region
+    dynamic "origin_shield" {
+      for_each = var.origin_shield ? ["true"] : []
+      content {
+        enabled              = var.origin_shield.enabled
+        origin_shield_region = var.origin_shield.region
+      }
     }
 
     dynamic "custom_header" {

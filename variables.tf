@@ -83,16 +83,13 @@ variable "origin_protocol_policy" {
   default     = "match-viewer"
 }
 
-variable "origin_shield_enabled" {
-  type        = bool
-  description = "Whether to use CloudFront Origin Shield"
-  default     = false
-}
-
-variable "origin_shield_region" {
-  type        = string
-  description = "The AWS Region for the Origin Shield"
-  default     = "us-east-1"
+variable "origin_shield" {
+  type = object({
+    enabled = bool
+    region  = string
+  })
+  description = "The CloudFront Origin Shield settings"
+  default     = null
 }
 
 variable "origin_ssl_protocols" {

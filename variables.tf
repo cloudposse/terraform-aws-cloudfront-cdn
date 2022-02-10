@@ -401,3 +401,8 @@ variable "realtime_log_config_arn" {
   description = "The ARN of the real-time log configuration that is attached to this cache behavior"
 }
 
+variable "register_in_shield" {
+  type        = bool
+  description = "If true, registers the Cloudfront distribution in AWS Shield Advanced"
+  default     = false
+}

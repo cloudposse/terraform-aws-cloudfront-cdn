@@ -258,3 +258,11 @@ module "dns" {
 
   context = module.this.context
 }
+
+resource "aws_shield_protection" "default" {
+  count = module.this.enabled && var.register_in_shield ? 1 : 0
+
+  name         = module.this.name
+  tags         = module.this.tags
+  resource_arn = aws_cloudfront_distribution.default[0].arn
+}

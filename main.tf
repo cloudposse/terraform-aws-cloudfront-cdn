@@ -34,6 +34,7 @@ resource "aws_cloudfront_distribution" "default" {
 
   enabled             = var.distribution_enabled
   is_ipv6_enabled     = var.is_ipv6_enabled
+  http_version        = var.http_version
   comment             = var.comment
   default_root_object = var.default_root_object
   price_class         = var.price_class
@@ -88,8 +89,6 @@ resource "aws_cloudfront_distribution" "default" {
         value = custom_header.value.value
       }
     }
-
-
   }
 
   dynamic "origin" {

@@ -266,3 +266,9 @@ variable "trusted_signers" {
   default     = []
   description = "List of AWS account IDs (or self) that you want to allow to create signed URLs for private content"
 }
+
+variable "http_version" {
+  type        = string
+  default     = "http2"
+  description = "The maximum HTTP version to support on the distribution. Allowed values are http1.1, http2, http2and3 and http3."
+}

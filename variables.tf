@@ -401,3 +401,8 @@ variable "realtime_log_config_arn" {
   description = "The ARN of the real-time log configuration that is attached to this cache behavior"
 }
 
+variable "http_version" {
+  type        = string
+  default     = "http2"
+  description = "The maximum HTTP version to support on the distribution. Allowed values are http1.1, http2, http2and3 and http3."
+}

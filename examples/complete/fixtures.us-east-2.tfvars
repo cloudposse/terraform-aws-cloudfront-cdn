@@ -15,3 +15,5 @@ aliases = []
 origin_domain_name = "example.com"
 
 parent_zone_name = "testing.cloudposse.co"
+
+http_version = "http2and3"

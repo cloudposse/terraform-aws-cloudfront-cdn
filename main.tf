@@ -186,13 +186,14 @@ resource "aws_cloudfront_distribution" "default" {
     content {
       path_pattern = ordered_cache_behavior.value.path_pattern
 
-      allowed_methods          = ordered_cache_behavior.value.allowed_methods
-      cached_methods           = ordered_cache_behavior.value.cached_methods
-      cache_policy_id          = ordered_cache_behavior.value.cache_policy_id
-      origin_request_policy_id = ordered_cache_behavior.value.origin_request_policy_id
-      target_origin_id         = ordered_cache_behavior.value.target_origin_id == "" ? module.this.id : ordered_cache_behavior.value.target_origin_id
-      compress                 = ordered_cache_behavior.value.compress
-      trusted_signers          = var.trusted_signers
+      allowed_methods            = ordered_cache_behavior.value.allowed_methods
+      cached_methods             = ordered_cache_behavior.value.cached_methods
+      cache_policy_id            = ordered_cache_behavior.value.cache_policy_id
+      origin_request_policy_id   = ordered_cache_behavior.value.origin_request_policy_id
+      target_origin_id           = ordered_cache_behavior.value.target_origin_id == "" ? module.this.id : ordered_cache_behavior.value.target_origin_id
+      compress                   = ordered_cache_behavior.value.compress
+      response_headers_policy_id = ordered_cache_behavior.value.response_headers_policy_id
+      trusted_signers            = var.trusted_signers
 
       dynamic "forwarded_values" {
         # If a cache policy or origin request policy is specified, we cannot include a `forwarded_values` block at all in the API request

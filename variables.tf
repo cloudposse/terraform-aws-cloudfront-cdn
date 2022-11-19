@@ -319,6 +319,8 @@ variable "ordered_cache" {
     forward_header_values = list(string)
     forward_cookies       = string
 
+    response_headers_policy_id = string
+
     lambda_function_association = list(object({
       event_type   = string
       include_body = bool

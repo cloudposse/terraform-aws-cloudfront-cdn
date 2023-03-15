@@ -358,12 +358,24 @@ variable "custom_origins" {
       origin_keepalive_timeout = number
       origin_read_timeout      = number
     })
-    s3_origin_config = object({
-      origin_access_identity = string
-    })
   }))
   default     = []
   description = "One or more custom origins for this distribution (multiples allowed). See documentation for configuration options description https://www.terraform.io/docs/providers/aws/r/cloudfront_distribution.html#origin-arguments"
+}
+
+variable "s3_origins" {
+  type = list(object({
+    domain_name              = string
+    origin_id                = string
+    origin_path              = string
+    origin_access_control_id = string
+  }))
+  default     = []
+  description = <<-EOT
+    A list of S3 [origins](https://www.terraform.io/docs/providers/aws/r/cloudfront_distribution.html#origin-arguments) (in addition to the one created by this module) for this distribution.
+    S3 buckets configured as websites are `custom_origins`, not `s3_origins`.
+    Specifying `s3_origin_config.origin_access_identity` as `null` or `""` will have it translated to the `origin_access_identity` used by the origin created by the module.
+    EOT
 }
 
 variable "trusted_signers" {

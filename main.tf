@@ -115,12 +115,16 @@ resource "aws_cloudfront_distribution" "default" {
           origin_read_timeout      = lookup(origin.value.custom_origin_config, "origin_read_timeout", 60)
         }
       }
-      dynamic "s3_origin_config" {
-        for_each = lookup(origin.value, "s3_origin_config", null) == null ? [] : [true]
-        content {
-          origin_access_identity = lookup(origin.value.s3_origin_config, "origin_access_identity", null)
-        }
-      }
+    }
+  }
+
+  dynamic "origin" {
+    for_each = var.s3_origins
+    content {
+      domain_name              = origin.value.domain_name
+      origin_id                = origin.value.origin_id
+      origin_path              = lookup(origin.value, "origin_path", "")
+      origin_access_control_id = origin.value.origin_access_control_id
     }
   }
 

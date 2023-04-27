@@ -33,10 +33,10 @@ module "logs" {
       noncurrent_days = 90
     }
 
-    noncurrent_version_transition = {
+    noncurrent_version_transition = [{
       noncurrent_days = 30
       storage_class   = "GLACIER"
-    }
+    }]
 
     expiration = {
       days = var.log_expiration_days

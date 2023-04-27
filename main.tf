@@ -21,10 +21,13 @@ module "logs" {
   attributes               = compact(concat(module.this.attributes, ["origin", "logs"]))
 
   lifecycle_configuration_rules = [{
-    id                                     = module.this.id
-    enabled                                = true
-    prefix                                 = var.log_prefix
+    id      = module.this.id
+    enabled = true
+    prefix  = var.log_prefix
+
     abort_incomplete_multipart_upload_days = 5
+
+    filter_and = null
 
     noncurrent_version_expiration = {
       noncurrent_days = 90

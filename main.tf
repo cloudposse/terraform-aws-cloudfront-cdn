@@ -15,14 +15,40 @@ resource "aws_cloudfront_origin_access_identity" "default" {
 
 module "logs" {
   source  = "cloudposse/s3-log-storage/aws"
-  version = "0.26.0"
+  version = "1.1.0"
 
   enabled                  = module.this.enabled && var.logging_enabled && length(var.log_bucket_fqdn) == 0
   attributes               = compact(concat(module.this.attributes, ["origin", "logs"]))
-  lifecycle_prefix         = var.log_prefix
-  standard_transition_days = var.log_standard_transition_days
-  glacier_transition_days  = var.log_glacier_transition_days
-  expiration_days          = var.log_expiration_days
+
+  lifecycle_configuration_rules = [{
+    prefix = var.log_prefix
+
+    noncurrent_version_expiration = {
+      noncurrent_days = 90
+    }
+
+    noncurrent_version_transition = {
+      noncurrent_days = 30
+      storage_class   = "GLACIER"
+    }
+
+    expiration = {
+      days = var.log_expiration_days
+    }
+
+    transition = [
+      {
+        days          = var.log_standard_transition_days
+        storage_class = "STANDARD_IA"
+      },
+      {
+        days          = var.log_glacier_transition_days
+        storage_class = "GLACIER"
+      }
+    ]
+  }]
+  
+
   force_destroy            = var.log_force_destroy
 
   context = module.this.context

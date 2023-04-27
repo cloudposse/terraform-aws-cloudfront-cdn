@@ -274,6 +274,11 @@ resource "aws_cloudfront_distribution" "default" {
   }
 
   tags = module.this.tags
+
+  depends_on = [
+    # Wait until Logs bucket is fully created
+    module.logs
+  ]
 }
 
 module "dns" {

@@ -14,8 +14,8 @@ resource "aws_cloudfront_origin_access_identity" "default" {
 }
 
 module "logs" {
-  source  = "cloudposse/s3-log-storage/aws"
-  version = "1.1.0"
+  source  = "git@github.com:salesimpact/terraform-aws-s3-log-storage.git?ref=79e050aaedfa9576be1067a3e2d6ec9ac0a8fb6a"
+  # version = "1.1.0"
 
   enabled                  = module.this.enabled && var.logging_enabled && length(var.log_bucket_fqdn) == 0
   attributes               = compact(concat(module.this.attributes, ["origin", "logs"]))

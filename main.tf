@@ -19,7 +19,6 @@ module "logs" {
 
   enabled                  = module.this.enabled && var.logging_enabled && length(var.log_bucket_fqdn) == 0
   attributes               = compact(concat(module.this.attributes, ["origin", "logs"]))
-  acl                      = "private"
   lifecycle_prefix         = var.log_prefix
   standard_transition_days = var.log_standard_transition_days
   glacier_transition_days  = var.log_glacier_transition_days

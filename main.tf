@@ -21,6 +21,7 @@ module "logs" {
   attributes               = compact(concat(module.this.attributes, ["origin", "logs"]))
   lifecycle_prefix         = var.log_prefix
   s3_object_ownership      = "ObjectWriter"
+  acl                      = "bucket-owner-full-control"
   standard_transition_days = var.log_standard_transition_days
   glacier_transition_days  = var.log_glacier_transition_days
   expiration_days          = var.log_expiration_days

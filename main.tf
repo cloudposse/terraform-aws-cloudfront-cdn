@@ -15,15 +15,29 @@ resource "aws_cloudfront_origin_access_identity" "default" {
 
 module "logs" {
   source  = "cloudposse/s3-log-storage/aws"
-  version = "0.26.0"
+  version = "1.4.2"
 
   enabled                  = module.this.enabled && var.logging_enabled && length(var.log_bucket_fqdn) == 0
   attributes               = compact(concat(module.this.attributes, ["origin", "logs"]))
+  allow_ssl_requests_only  = true
   lifecycle_prefix         = var.log_prefix
+  s3_object_ownership      = "BucketOwnerPreferred"
   standard_transition_days = var.log_standard_transition_days
   glacier_transition_days  = var.log_glacier_transition_days
   expiration_days          = var.log_expiration_days
   force_destroy            = var.log_force_destroy
+
+  # See https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/AccessLogs.html
+  acl = null
+  grants = [
+    {
+      # Canonical ID for the awslogsdelivery account
+      id          = "c4c1ede66af53448b93c283ce9448c4ba468c9432aa01d700d3878632f77d2d0"
+      permissions = ["FULL_CONTROL"]
+      type        = "CanonicalUser"
+      uri         = null
+    },
+  ]
 
   context = module.this.context
 }
@@ -242,6 +256,8 @@ resource "aws_cloudfront_distribution" "default" {
   }
 
   tags = module.this.tags
+
+  depends_on = [module.logs]
 }
 
 module "dns" {

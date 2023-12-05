@@ -75,9 +75,10 @@ resource "aws_cloudfront_distribution" "default" {
   }
 
   origin {
-    domain_name = var.origin_domain_name
-    origin_id   = module.this.id
-    origin_path = var.origin_path
+    domain_name              = var.origin_domain_name
+    origin_id                = module.this.id
+    origin_path              = var.origin_path
+    origin_access_control_id = lookup(origin.value, "origin_access_control_id", null)
 
     custom_origin_config {
       http_port                = var.origin_http_port

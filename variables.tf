@@ -343,9 +343,10 @@ DESCRIPTION
 
 variable "custom_origins" {
   type = list(object({
-    domain_name = string
-    origin_id   = string
-    origin_path = string
+    domain_name              = string
+    origin_id                = string
+    origin_path              = string
+    origin_access_control_id = string
     custom_headers = list(object({
       name  = string
       value = string

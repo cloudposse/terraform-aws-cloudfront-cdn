@@ -318,6 +318,7 @@ variable "ordered_cache" {
     forward_query_string  = bool
     forward_header_values = list(string)
     forward_cookies       = string
+    forward_cookies_whitelisted_names = list(string)
 
     response_headers_policy_id = string
 

@@ -215,7 +215,7 @@ variable "price_class" {
 variable "viewer_minimum_protocol_version" {
   type        = string
   description = "The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections."
-  default     = "TLSv1"
+  default     = "TLSv1.2_2021"
 }
 
 variable "viewer_protocol_policy" {

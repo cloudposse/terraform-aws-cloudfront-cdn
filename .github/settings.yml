@@ -1,0 +1,7 @@
+# Upstream changes from _extends are only recognized when modifications are made to this file in the default branch.
+_extends: .github
+repository:
+  name: terraform-aws-cloudfront-cdn
+  description: 'Terraform Module that implements a CloudFront Distribution (CDN) for a custom origin. '
+  homepage: https://cloudposse.com/accelerate
+  topics: cdn, bucket, aws, terraform, terraform-module, cloudfront

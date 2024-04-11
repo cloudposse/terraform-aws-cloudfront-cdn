@@ -134,6 +134,12 @@ variable "comment" {
   description = "Comment for the origin access identity"
 }
 
+variable "origin_access_identity_enabled" {
+  type        = bool
+  default     = true
+  description = "When true, creates origin access identity resource"
+}
+
 variable "logging_enabled" {
   type        = bool
   default     = true

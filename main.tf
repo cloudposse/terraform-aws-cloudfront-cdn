@@ -8,7 +8,7 @@ module "origin_label" {
 }
 
 resource "aws_cloudfront_origin_access_identity" "default" {
-  count = module.this.enabled ? 1 : 0
+  count = module.this.enabled && var.origin_access_identity_enabled ? 1 : 0
 
   comment = module.origin_label.id
 }

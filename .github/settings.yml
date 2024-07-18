@@ -5,3 +5,4 @@ repository:
   description: 'Terraform Module that implements a CloudFront Distribution (CDN) for a custom origin. '
   homepage: https://cloudposse.com/accelerate
   topics: cdn, bucket, aws, terraform, terraform-module, cloudfront
+

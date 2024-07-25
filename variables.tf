@@ -65,6 +65,13 @@ variable "origin_path" {
   default     = ""
 }
 
+variable "origin_access_control_id" {
+  # https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html
+  type        = string
+  description = "CloudFront provides two ways to send authenticated requests to an Amazon S3 origin: origin access control (OAC) and origin access identity (OAI). OAC helps you secure your origins, such as for Amazon S3."
+  default     = null
+}
+
 variable "origin_http_port" {
   type        = number
   description = "The HTTP port the custom origin listens on"
@@ -349,9 +356,10 @@ DESCRIPTION
 
 variable "custom_origins" {
   type = list(object({
-    domain_name = string
-    origin_id   = string
-    origin_path = string
+    domain_name              = string
+    origin_id                = string
+    origin_path              = string
+    origin_access_control_id = string
     custom_headers = list(object({
       name  = string
       value = string

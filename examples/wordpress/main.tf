@@ -42,12 +42,12 @@ module "cdn" {
   price_class                       = "PriceClass_All"
 
   ordered_cache = [
-    merge(local.wp_nocache_behavior, map("path_pattern", "wp-admin/*")),
-    merge(local.wp_nocache_behavior, map("path_pattern", "wp-login.php")),
-    merge(local.wp_nocache_behavior, map("path_pattern", "wp-signup.php")),
-    merge(local.wp_nocache_behavior, map("path_pattern", "wp-trackback.php")),
-    merge(local.wp_nocache_behavior, map("path_pattern", "wp-cron.php")),
-    merge(local.wp_nocache_behavior, map("path_pattern", "xmlrpc.php"))
+    merge(local.wp_nocache_behavior, { path_pattern = "wp-admin/*" }),
+    merge(local.wp_nocache_behavior, { path_pattern = "wp-login.php" }),
+    merge(local.wp_nocache_behavior, { path_pattern = "wp-signup.php" }),
+    merge(local.wp_nocache_behavior, { path_pattern = "wp-trackback.php" }),
+    merge(local.wp_nocache_behavior, { path_pattern = "wp-cron.php" }),
+    merge(local.wp_nocache_behavior, { path_pattern = "xmlrpc.php" })
   ]
 
   context = module.this.context

@@ -78,7 +78,7 @@ resource "aws_cloudfront_distribution" "default" {
     domain_name              = var.origin_domain_name
     origin_id                = module.this.id
     origin_path              = var.origin_path
-    origin_access_control_id = var.origin_access_control_id
+    origin_access_control_id = var.origin_type == "s3" ? var.origin_access_control_id : null
 
     dynamic "custom_origin_config" {
       for_each = var.origin_type == "custom" ? [1] : []

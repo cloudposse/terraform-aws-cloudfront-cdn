@@ -422,3 +422,21 @@ variable "http_version" {
   default     = "http2"
   description = "The maximum HTTP version to support on the distribution. Allowed values are http1.1, http2, http2and3 and http3."
 }
+
+variable "origin_type" {
+  type        = string
+  description = "The type of origin configuration to use. Valid values are 'custom' or 's3'."
+  default     = "custom"
+  validation {
+    condition     = contains(["custom", "s3"], var.origin_type)
+    error_message = "Valid values for origin_type are 'custom' or 's3'."
+  }
+}
+
+variable "s3_origin_config" {
+  type = object({
+    origin_access_identity = string
+  })
+  description = "Configuration for S3 origin. Required when origin_type is 's3'."
+  default     = null
+}

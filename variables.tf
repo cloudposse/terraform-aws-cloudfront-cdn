@@ -375,6 +375,10 @@ variable "custom_origins" {
     s3_origin_config = object({
       origin_access_identity = string
     })
+    origin_shield = object({
+      enabled = bool
+      region  = string
+    })
   }))
   default     = []
   description = "One or more custom origins for this distribution (multiples allowed). See documentation for configuration options description https://www.terraform.io/docs/providers/aws/r/cloudfront_distribution.html#origin-arguments"

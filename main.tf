@@ -131,6 +131,7 @@ resource "aws_cloudfront_distribution" "default" {
           value = custom_header.value["value"]
         }
       }
+
       dynamic "custom_origin_config" {
         for_each = lookup(origin.value, "custom_origin_config", null) == null ? [] : [true]
         content {
@@ -142,10 +143,19 @@ resource "aws_cloudfront_distribution" "default" {
           origin_read_timeout      = lookup(origin.value.custom_origin_config, "origin_read_timeout", 60)
         }
       }
+
       dynamic "s3_origin_config" {
         for_each = lookup(origin.value, "s3_origin_config", null) == null ? [] : [true]
         content {
           origin_access_identity = lookup(origin.value.s3_origin_config, "origin_access_identity", null)
+        }
+      }
+
+      dynamic "origin_shield" {
+        for_each = lookup(origin.value, "origin_shield", null) != null ? [origin.value.origin_shield] : []
+        content {
+          enabled              = origin_shield.value.enabled
+          origin_shield_region = origin_shield.value.region
         }
       }
     }

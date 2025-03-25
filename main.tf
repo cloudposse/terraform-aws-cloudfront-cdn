@@ -212,9 +212,10 @@ resource "aws_cloudfront_distribution" "default" {
     }
 
     viewer_protocol_policy = var.viewer_protocol_policy
-    default_ttl            = var.default_ttl
-    min_ttl                = var.min_ttl
-    max_ttl                = var.max_ttl
+    # Only set TTL values when no cache policy is specified
+    default_ttl = try(coalesce(var.cache_policy_id), null) == null ? var.default_ttl : 0
+    min_ttl     = try(coalesce(var.cache_policy_id), null) == null ? var.min_ttl : 0
+    max_ttl     = try(coalesce(var.cache_policy_id), null) == null ? var.max_ttl : 0
   }
 
   dynamic "ordered_cache_behavior" {
@@ -246,9 +247,10 @@ resource "aws_cloudfront_distribution" "default" {
       }
 
       viewer_protocol_policy = ordered_cache_behavior.value.viewer_protocol_policy
-      default_ttl            = ordered_cache_behavior.value.default_ttl
-      min_ttl                = ordered_cache_behavior.value.min_ttl
-      max_ttl                = ordered_cache_behavior.value.max_ttl
+      # Only set TTL values when no cache policy is specified
+      default_ttl = try(coalesce(ordered_cache_behavior.value.cache_policy_id), null) == null ? ordered_cache_behavior.value.default_ttl : 0
+      min_ttl     = try(coalesce(ordered_cache_behavior.value.cache_policy_id), null) == null ? ordered_cache_behavior.value.min_ttl : 0
+      max_ttl     = try(coalesce(ordered_cache_behavior.value.cache_policy_id), null) == null ? ordered_cache_behavior.value.max_ttl : 0
 
       dynamic "lambda_function_association" {
         for_each = ordered_cache_behavior.value.lambda_function_association

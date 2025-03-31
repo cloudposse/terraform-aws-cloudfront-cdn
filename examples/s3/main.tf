@@ -13,15 +13,23 @@ resource "aws_cloudfront_origin_access_identity" "custom" {
   comment = "${var.name}-custom"
 }
 
+# Public S3 endpoint without any OAI/OAC
+module "s3_plain" {
+  source = "../../"
+
+  origin_domain_name = var.origin_domain_name
+  origin_type        = "custom"
+
+  logging_enabled = var.logging_enabled
+  context         = module.this.context
+}
+
 module "s3_oac" {
   source = "../../"
 
   origin_domain_name       = var.origin_domain_name
   origin_type              = var.origin_type
   origin_access_control_id = aws_cloudfront_origin_access_control.s3.id
-  s3_origin_config = {
-    origin_access_identity = "" # Default OAI must be disabled to use OAC
-  }
 
   logging_enabled = var.logging_enabled
   context         = module.this.context

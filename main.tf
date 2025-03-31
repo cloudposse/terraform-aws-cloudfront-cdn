@@ -93,7 +93,8 @@ resource "aws_cloudfront_distribution" "default" {
     }
 
     dynamic "s3_origin_config" {
-      for_each = var.origin_type == "s3" ? (
+      # Makes sense only if OAC wasn't specified
+      for_each = var.origin_type == "s3" && var.origin_access_control_id == null ? (
         var.s3_origin_config == null ?
         [{ origin_access_identity = aws_cloudfront_origin_access_identity.default[0].cloudfront_access_identity_path }] :
         [var.s3_origin_config]

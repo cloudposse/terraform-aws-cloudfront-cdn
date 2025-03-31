@@ -441,6 +441,6 @@ variable "s3_origin_config" {
   type = object({
     origin_access_identity = string
   })
-  description = "Configuration for S3 origin. Required when origin_type is 's3'."
+  description = "Optional configuration for an S3 origin."
   default     = null
 }

@@ -9,7 +9,9 @@ resource "aws_cloudfront_origin_access_control" "s3" {
   signing_protocol                  = "sigv4"
 }
 
-resource "aws_cloudfront_origin_access_identity" "custom" {}
+resource "aws_cloudfront_origin_access_identity" "custom" {
+  comment = var.name
+}
 
 module "s3_oac" {
   source = "../../"

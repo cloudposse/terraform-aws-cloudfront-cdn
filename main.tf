@@ -93,7 +93,11 @@ resource "aws_cloudfront_distribution" "default" {
     }
 
     dynamic "s3_origin_config" {
-      for_each = var.origin_type == "s3" && var.s3_origin_config != null ? [var.s3_origin_config] : []
+      for_each = var.origin_type == "s3" ? (
+        var.s3_origin_config == null ?
+        [{ origin_access_identity = aws_cloudfront_origin_access_identity.default[0].cloudfront_access_identity_path }] :
+        [var.s3_origin_config]
+      ) : []
       content {
         origin_access_identity = s3_origin_config.value.origin_access_identity
       }

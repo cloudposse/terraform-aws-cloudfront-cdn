@@ -2,15 +2,15 @@ provider "aws" {
   region = var.region
 }
 
-resource "aws_cloudfront_origin_access_control" "s3" {
-  name                              = "${var.name}-s3-oac"
+resource "aws_cloudfront_origin_access_control" "oac" {
+  name                              = "custom-oac"
   origin_access_control_origin_type = "s3"
   signing_behavior                  = "always"
   signing_protocol                  = "sigv4"
 }
 
-resource "aws_cloudfront_origin_access_identity" "custom" {
-  comment = "${var.name}-custom"
+resource "aws_cloudfront_origin_access_identity" "oai" {
+  comment = "custom-oai"
 }
 
 # Public S3 endpoint without any OAI/OAC
@@ -29,7 +29,7 @@ module "s3_oac" {
 
   origin_domain_name       = var.origin_domain_name
   origin_type              = var.origin_type
-  origin_access_control_id = aws_cloudfront_origin_access_control.s3.id
+  origin_access_control_id = aws_cloudfront_origin_access_control.oac.id
 
   logging_enabled = var.logging_enabled
   context         = module.this.context
@@ -51,7 +51,7 @@ module "s3_oai_custom" {
   origin_domain_name = var.origin_domain_name
   origin_type        = var.origin_type
   s3_origin_config = {
-    origin_access_identity = aws_cloudfront_origin_access_identity.custom.cloudfront_access_identity_path
+    origin_access_identity = aws_cloudfront_origin_access_identity.oai.cloudfront_access_identity_path
   }
 
   logging_enabled = var.logging_enabled

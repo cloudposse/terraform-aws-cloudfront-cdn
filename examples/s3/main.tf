@@ -10,7 +10,7 @@ resource "aws_cloudfront_origin_access_control" "s3" {
 }
 
 resource "aws_cloudfront_origin_access_identity" "custom" {
-  comment = var.name
+  comment = "${var.name}-custom"
 }
 
 module "s3_oac" {

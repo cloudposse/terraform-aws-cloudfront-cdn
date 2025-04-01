@@ -334,9 +334,9 @@ variable "ordered_cache" {
 
     response_headers_policy_id = string
 
-    grpc_config = object({
+    grpc_config = optional(object({
       enabled = bool
-    })
+    }), { enabled = false })
 
     lambda_function_association = list(object({
       event_type   = string
@@ -431,6 +431,6 @@ variable "grpc_config" {
   type = object({
     enabled = bool
   })
-  default     = null
+  default     = { enabled = false }
   description = "The gRPC configuration for the default CloudFront distribution cache behavior"
 }

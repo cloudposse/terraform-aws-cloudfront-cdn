@@ -334,6 +334,10 @@ variable "ordered_cache" {
 
     response_headers_policy_id = string
 
+    grpc_config = object({
+      enabled = bool
+    })
+
     lambda_function_association = list(object({
       event_type   = string
       include_body = bool
@@ -421,4 +425,12 @@ variable "http_version" {
   type        = string
   default     = "http2"
   description = "The maximum HTTP version to support on the distribution. Allowed values are http1.1, http2, http2and3 and http3."
+}
+
+variable "grpc_config" {
+  type = object({
+    enabled = bool
+  })
+  default     = null
+  description = "The gRPC configuration for the default CloudFront distribution cache behavior"
 }

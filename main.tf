@@ -157,6 +157,13 @@ resource "aws_cloudfront_distribution" "default" {
     compress                   = var.compress
     response_headers_policy_id = var.response_headers_policy_id
 
+    dynamic "grpc_config" {
+      for_each = var.grpc_config != null ? [var.grpc_config] : []
+      content {
+        enabled = grpc_config.value.enabled
+      }
+    }
+
     dynamic "forwarded_values" {
       # If a cache policy or origin request policy is specified, we cannot include a `forwarded_values` block at all in the API request
       for_each = try(coalesce(var.cache_policy_id), null) == null && try(coalesce(var.origin_request_policy_id), null) == null ? [true] : []
@@ -211,6 +218,13 @@ resource "aws_cloudfront_distribution" "default" {
       compress                   = ordered_cache_behavior.value.compress
       response_headers_policy_id = ordered_cache_behavior.value.response_headers_policy_id
       trusted_signers            = var.trusted_signers
+
+      dynamic "grpc_config" {
+        for_each = ordered_cache_behavior.value.grpc_config != null ? [ordered_cache_behavior.value.grpc_config] : []
+        content {
+          enabled = grpc_config.value.enabled
+        }
+      }
 
       dynamic "forwarded_values" {
         # If a cache policy or origin request policy is specified, we cannot include a `forwarded_values` block at all in the API request

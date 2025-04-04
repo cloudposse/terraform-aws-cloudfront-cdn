@@ -78,15 +78,30 @@ resource "aws_cloudfront_distribution" "default" {
     domain_name              = var.origin_domain_name
     origin_id                = module.this.id
     origin_path              = var.origin_path
-    origin_access_control_id = var.origin_access_control_id
+    origin_access_control_id = var.origin_type == "s3" ? var.origin_access_control_id : null
 
-    custom_origin_config {
-      http_port                = var.origin_http_port
-      https_port               = var.origin_https_port
-      origin_protocol_policy   = var.origin_protocol_policy
-      origin_ssl_protocols     = var.origin_ssl_protocols
-      origin_keepalive_timeout = var.origin_keepalive_timeout
-      origin_read_timeout      = var.origin_read_timeout
+    dynamic "custom_origin_config" {
+      for_each = var.origin_type == "custom" ? [1] : []
+      content {
+        http_port                = var.origin_http_port
+        https_port               = var.origin_https_port
+        origin_protocol_policy   = var.origin_protocol_policy
+        origin_ssl_protocols     = var.origin_ssl_protocols
+        origin_keepalive_timeout = var.origin_keepalive_timeout
+        origin_read_timeout      = var.origin_read_timeout
+      }
+    }
+
+    dynamic "s3_origin_config" {
+      # Makes sense only if OAC wasn't specified
+      for_each = var.origin_type == "s3" && var.origin_access_control_id == null ? (
+        var.s3_origin_config == null ?
+        [{ origin_access_identity = aws_cloudfront_origin_access_identity.default[0].cloudfront_access_identity_path }] :
+        [var.s3_origin_config]
+      ) : []
+      content {
+        origin_access_identity = s3_origin_config.value.origin_access_identity
+      }
     }
 
     dynamic "origin_shield" {
@@ -121,6 +136,7 @@ resource "aws_cloudfront_distribution" "default" {
           value = custom_header.value["value"]
         }
       }
+
       dynamic "custom_origin_config" {
         for_each = lookup(origin.value, "custom_origin_config", null) == null ? [] : [true]
         content {
@@ -132,10 +148,19 @@ resource "aws_cloudfront_distribution" "default" {
           origin_read_timeout      = lookup(origin.value.custom_origin_config, "origin_read_timeout", 60)
         }
       }
+
       dynamic "s3_origin_config" {
         for_each = lookup(origin.value, "s3_origin_config", null) == null ? [] : [true]
         content {
           origin_access_identity = lookup(origin.value.s3_origin_config, "origin_access_identity", null)
+        }
+      }
+
+      dynamic "origin_shield" {
+        for_each = lookup(origin.value, "origin_shield", null) != null ? [origin.value.origin_shield] : []
+        content {
+          enabled              = origin_shield.value.enabled
+          origin_shield_region = origin_shield.value.region
         }
       }
     }

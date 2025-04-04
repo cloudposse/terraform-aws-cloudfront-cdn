@@ -379,6 +379,10 @@ variable "custom_origins" {
     s3_origin_config = object({
       origin_access_identity = string
     })
+    origin_shield = object({
+      enabled = bool
+      region  = string
+    })
   }))
   default     = []
   description = "One or more custom origins for this distribution (multiples allowed). See documentation for configuration options description https://www.terraform.io/docs/providers/aws/r/cloudfront_distribution.html#origin-arguments"
@@ -433,4 +437,22 @@ variable "grpc_config" {
   })
   default     = { enabled = false }
   description = "The gRPC configuration for the default CloudFront distribution cache behavior"
+}
+
+variable "origin_type" {
+  type        = string
+  description = "The type of origin configuration to use. Valid values are 'custom' or 's3'."
+  default     = "custom"
+  validation {
+    condition     = contains(["custom", "s3"], var.origin_type)
+    error_message = "Valid values for origin_type are 'custom' or 's3'."
+  }
+}
+
+variable "s3_origin_config" {
+  type = object({
+    origin_access_identity = string
+  })
+  description = "Optional configuration for an S3 origin."
+  default     = null
 }

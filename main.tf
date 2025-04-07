@@ -183,7 +183,8 @@ resource "aws_cloudfront_distribution" "default" {
     response_headers_policy_id = var.response_headers_policy_id
 
     dynamic "grpc_config" {
-      for_each = var.grpc_config != null ? [var.grpc_config] : []
+      # GRPC support can be enabled only when POST is allowed
+      for_each = contains(var.allowed_methods, "POST") && var.grpc_config != null ? [var.grpc_config] : []
       content {
         enabled = grpc_config.value.enabled
       }
@@ -246,7 +247,8 @@ resource "aws_cloudfront_distribution" "default" {
       trusted_signers            = var.trusted_signers
 
       dynamic "grpc_config" {
-        for_each = ordered_cache_behavior.value.grpc_config != null ? [ordered_cache_behavior.value.grpc_config] : []
+        # GRPC support can be enabled only when POST is allowed
+        for_each = contains(ordered_cache_behavior.value.allowed_methods, "POST") && ordered_cache_behavior.value.grpc_config != null ? [ordered_cache_behavior.value.grpc_config] : []
         content {
           enabled = grpc_config.value.enabled
         }

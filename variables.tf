@@ -108,13 +108,13 @@ variable "origin_ssl_protocols" {
 variable "origin_keepalive_timeout" {
   type        = number
   description = "The Custom KeepAlive timeout, in seconds. By default, AWS enforces a limit of 60. But you can request an increase."
-  default     = 60
+  default     = 5
 }
 
 variable "origin_read_timeout" {
   type        = number
   description = "The Custom Read timeout, in seconds. By default, AWS enforces a limit of 60. But you can request an increase."
-  default     = 60
+  default     = 30
 }
 
 variable "compress" {
@@ -317,37 +317,37 @@ variable "ordered_cache" {
     target_origin_id = string
     path_pattern     = string
 
-    allowed_methods          = optional(list(string), var.allowed_methods)
-    cached_methods           = optional(list(string), var.cached_methods)
-    cache_policy_id          = optional(string, var.cache_policy_id)
-    origin_request_policy_id = optional(string, var.origin_request_policy_id)
-    compress                 = optional(bool, var.compress)
+    allowed_methods          = optional(list(string), ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"])
+    cached_methods           = optional(list(string), ["GET", "HEAD"])
+    cache_policy_id          = optional(string, null)
+    origin_request_policy_id = optional(string, null)
+    compress                 = optional(bool, false)
 
-    viewer_protocol_policy = optional(string, var.viewer_protocol_policy)
-    min_ttl                = optional(number, var.min_ttl)
-    default_ttl            = optional(number, var.default_ttl)
-    max_ttl                = optional(number, var.max_ttl)
+    viewer_protocol_policy = optional(string, "redirect-to-https")
+    min_ttl                = optional(number, 0)
+    default_ttl            = optional(number, 60)
+    max_ttl                = optional(number, 31536000)
 
-    forward_query_string  = optional(bool, var.forward_query_string)
-    forward_header_values = optional(list(string), var.forward_headers)
-    forward_cookies       = optional(string, var.forward_cookies)
+    forward_query_string  = optional(bool, false)
+    forward_header_values = optional(list(string), [])
+    forward_cookies       = optional(string, "none")
 
-    response_headers_policy_id = optional(string, var.response_headers_policy_id)
+    response_headers_policy_id = optional(string, "")
 
     grpc_config = optional(object({
       enabled = bool
-    }), var.grpc_config)
+    }), { enabled = false })
 
     lambda_function_association = optional(list(object({
       event_type   = string
       include_body = bool
       lambda_arn   = string
-    })), var.lambda_function_association)
+    })), [])
 
     function_association = optional(list(object({
       event_type   = string
       function_arn = string
-    })), var.function_association)
+    })), [])
   }))
   default     = []
   description = <<DESCRIPTION
@@ -362,27 +362,27 @@ variable "custom_origins" {
   type = list(object({
     domain_name              = string
     origin_id                = string
-    origin_path              = optional(string, var.origin_path)
-    origin_access_control_id = optional(string, var.origin_access_control_id)
+    origin_path              = optional(string, "")
+    origin_access_control_id = optional(string, null)
     custom_headers = optional(list(object({
       name  = string
       value = string
-    })), var.custom_header)
+    })), [])
     custom_origin_config = optional(object({
-      http_port                = optional(number, var.origin_http_port)
-      https_port               = optional(number, var.origin_https_port)
-      origin_protocol_policy   = optional(string, var.origin_protocol_policy)
-      origin_ssl_protocols     = optional(list(string), var.origin_ssl_protocols)
-      origin_keepalive_timeout = optional(number, var.origin_keepalive_timeout)
-      origin_read_timeout      = optional(number, var.origin_read_timeout)
+      http_port                = optional(number, 80)
+      https_port               = optional(number, 443)
+      origin_protocol_policy   = optional(string, "match-viewer")
+      origin_ssl_protocols     = optional(list(string), ["TLSv1", "TLSv1.1", "TLSv1.2"])
+      origin_keepalive_timeout = optional(number, 5)
+      origin_read_timeout      = optional(number, 30)
     }), null)
     s3_origin_config = optional(object({
       origin_access_identity = string
-    }), var.s3_origin_config)
+    }), null)
     origin_shield = optional(object({
-      enabled = optional(bool)
-      region  = optional(string)
-    }), var.origin_shield)
+      enabled = optional(bool, false)
+      region  = optional(string, "")
+    }), null)
   }))
   default     = []
   description = "One or more custom origins for this distribution (multiples allowed). See documentation for configuration options description https://www.terraform.io/docs/providers/aws/r/cloudfront_distribution.html#origin-arguments"

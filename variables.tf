@@ -317,37 +317,37 @@ variable "ordered_cache" {
     target_origin_id = string
     path_pattern     = string
 
-    allowed_methods          = list(string)
-    cached_methods           = list(string)
-    cache_policy_id          = string
-    origin_request_policy_id = string
-    compress                 = bool
+    allowed_methods          = optional(list(string), var.allowed_methods)
+    cached_methods           = optional(list(string), var.cached_methods)
+    cache_policy_id          = optional(string, var.cache_policy_id)
+    origin_request_policy_id = optional(string, var.origin_request_policy_id)
+    compress                 = optional(bool, var.compress)
 
-    viewer_protocol_policy = string
-    min_ttl                = number
-    default_ttl            = number
-    max_ttl                = number
+    viewer_protocol_policy = optional(string, var.viewer_protocol_policy)
+    min_ttl                = optional(number, var.min_ttl)
+    default_ttl            = optional(number, var.default_ttl)
+    max_ttl                = optional(number, var.max_ttl)
 
-    forward_query_string  = bool
-    forward_header_values = list(string)
-    forward_cookies       = string
+    forward_query_string  = optional(bool, var.forward_query_string)
+    forward_header_values = optional(list(string), var.forward_headers)
+    forward_cookies       = optional(string, var.forward_cookies)
 
-    response_headers_policy_id = string
+    response_headers_policy_id = optional(string, var.response_headers_policy_id)
 
     grpc_config = optional(object({
       enabled = bool
-    }), { enabled = false })
+    }), var.grpc_config)
 
-    lambda_function_association = list(object({
+    lambda_function_association = optional(list(object({
       event_type   = string
       include_body = bool
       lambda_arn   = string
-    }))
+    })), var.lambda_function_association)
 
-    function_association = list(object({
+    function_association = optional(list(object({
       event_type   = string
       function_arn = string
-    }))
+    })), var.function_association)
   }))
   default     = []
   description = <<DESCRIPTION
@@ -362,27 +362,27 @@ variable "custom_origins" {
   type = list(object({
     domain_name              = string
     origin_id                = string
-    origin_path              = string
-    origin_access_control_id = string
-    custom_headers = list(object({
+    origin_path              = optional(string, var.origin_path)
+    origin_access_control_id = optional(string, var.origin_access_control_id)
+    custom_headers = optional(list(object({
       name  = string
       value = string
-    }))
-    custom_origin_config = object({
-      http_port                = number
-      https_port               = number
-      origin_protocol_policy   = string
-      origin_ssl_protocols     = list(string)
-      origin_keepalive_timeout = number
-      origin_read_timeout      = number
-    })
-    s3_origin_config = object({
+    })), var.custom_header)
+    custom_origin_config = optional(object({
+      http_port                = optional(number, var.origin_http_port)
+      https_port               = optional(number, var.origin_https_port)
+      origin_protocol_policy   = optional(string, var.origin_protocol_policy)
+      origin_ssl_protocols     = optional(list(string), var.origin_ssl_protocols)
+      origin_keepalive_timeout = optional(number, var.origin_keepalive_timeout)
+      origin_read_timeout      = optional(number, var.origin_read_timeout)
+    }), null)
+    s3_origin_config = optional(object({
       origin_access_identity = string
-    })
-    origin_shield = object({
-      enabled = bool
-      region  = string
-    })
+    }), var.s3_origin_config)
+    origin_shield = optional(object({
+      enabled = optional(bool)
+      region  = optional(string)
+    }), var.origin_shield)
   }))
   default     = []
   description = "One or more custom origins for this distribution (multiples allowed). See documentation for configuration options description https://www.terraform.io/docs/providers/aws/r/cloudfront_distribution.html#origin-arguments"

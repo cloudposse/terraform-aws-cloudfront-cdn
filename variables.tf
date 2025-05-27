@@ -26,10 +26,10 @@ variable "custom_error_response" {
   # http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/custom-error-pages.html#custom-error-pages-procedure
   # https://www.terraform.io/docs/providers/aws/r/cloudfront_distribution.html#custom-error-response-arguments
   type = list(object({
-    error_caching_min_ttl = string
+    error_caching_min_ttl = optional(string, null)
     error_code            = string
-    response_code         = string
-    response_page_path    = string
+    response_code         = optional(string, null)
+    response_page_path    = optional(string, null)
   }))
 
   description = "List of one or more custom error response element maps"
@@ -92,8 +92,8 @@ variable "origin_protocol_policy" {
 
 variable "origin_shield" {
   type = object({
-    enabled = bool
-    region  = string
+    enabled = optional(bool, false)
+    region  = optional(string, "")
   })
   description = "The CloudFront Origin Shield settings"
   default     = null
@@ -340,7 +340,7 @@ variable "ordered_cache" {
 
     lambda_function_association = optional(list(object({
       event_type   = string
-      include_body = bool
+      include_body = optional(bool, false)
       lambda_arn   = string
     })), [])
 
@@ -397,7 +397,7 @@ variable "trusted_signers" {
 variable "lambda_function_association" {
   type = list(object({
     event_type   = string
-    include_body = bool
+    include_body = optional(bool, false)
     lambda_arn   = string
   }))
 

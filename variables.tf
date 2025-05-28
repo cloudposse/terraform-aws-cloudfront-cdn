@@ -93,7 +93,7 @@ variable "origin_protocol_policy" {
 variable "origin_shield" {
   type = object({
     enabled = optional(bool, false)
-    region  = optional(string, "")
+    region  = optional(string, null)
   })
   description = "The CloudFront Origin Shield settings"
   default     = null
@@ -382,7 +382,7 @@ variable "custom_origins" {
     }), null)
     origin_shield = optional(object({
       enabled = optional(bool, false)
-      region  = optional(string, "")
+      region  = optional(string, null)
     }), null)
   }))
   default     = []

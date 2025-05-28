@@ -70,7 +70,7 @@ module "api" {
     {
       target_origin_id = "grpc"
       path_pattern     = "/UserService/*"
-      allowed_methods  = ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
+      allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
       min_ttl          = 0
       default_ttl      = 0
       max_ttl          = 0

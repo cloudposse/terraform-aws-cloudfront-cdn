@@ -328,9 +328,10 @@ variable "ordered_cache" {
     default_ttl            = optional(number, 60)
     max_ttl                = optional(number, 31536000)
 
-    forward_query_string  = optional(bool, false)
-    forward_header_values = optional(list(string), [])
-    forward_cookies       = optional(string, "none")
+    forward_query_string              = optional(bool, false)
+    forward_header_values             = optional(list(string), [])
+    forward_cookies                   = optional(string, "none")
+    forward_cookies_whitelisted_names = optional(list(string), [])
 
     response_headers_policy_id = optional(string, "")
 

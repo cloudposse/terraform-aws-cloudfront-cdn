@@ -199,7 +199,7 @@ resource "aws_cloudfront_distribution" "default" {
 
         cookies {
           forward           = var.forward_cookies
-          whitelisted_names = var.forward_cookies_whitelisted_names
+          whitelisted_names = var.forward_cookies == "whitelist" ? var.forward_cookies_whitelisted_names : null
         }
       }
     }
@@ -261,7 +261,7 @@ resource "aws_cloudfront_distribution" "default" {
 
           cookies {
             forward           = ordered_cache_behavior.value.forward_cookies
-            whitelisted_names = ordered_cache_behavior.value.forward_cookies_whitelisted_names
+            whitelisted_names = ordered_cache_behavior.value.forward_cookies == "whitelist" ? ordered_cache_behavior.value.forward_cookies_whitelisted_names : null
           }
         }
       }

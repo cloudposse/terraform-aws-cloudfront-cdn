@@ -92,10 +92,6 @@ aws acm request-certificate --domain-name example.com --subject-alternative-name
 
 
 
-
-
-
-
 <!-- markdownlint-disable -->
 ## Makefile Targets
 ```text

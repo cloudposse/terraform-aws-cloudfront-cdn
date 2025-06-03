@@ -67,10 +67,10 @@ resource "aws_cloudfront_distribution" "default" {
   dynamic "custom_error_response" {
     for_each = var.custom_error_response
     content {
-      error_caching_min_ttl = lookup(custom_error_response.value, "error_caching_min_ttl", null)
+      error_caching_min_ttl = custom_error_response.value.error_caching_min_ttl
       error_code            = custom_error_response.value.error_code
-      response_code         = lookup(custom_error_response.value, "response_code", null)
-      response_page_path    = lookup(custom_error_response.value, "response_page_path", null)
+      response_code         = custom_error_response.value.response_code
+      response_page_path    = custom_error_response.value.response_page_path
     }
   }
 
@@ -126,11 +126,11 @@ resource "aws_cloudfront_distribution" "default" {
     content {
       domain_name              = origin.value.domain_name
       origin_id                = origin.value.origin_id
-      origin_path              = lookup(origin.value, "origin_path", "")
-      origin_access_control_id = lookup(origin.value, "origin_access_control_id", null)
+      origin_path              = origin.value.origin_path
+      origin_access_control_id = origin.value.origin_access_control_id
 
       dynamic "custom_header" {
-        for_each = lookup(origin.value, "custom_headers", [])
+        for_each = origin.value.custom_headers
         content {
           name  = custom_header.value["name"]
           value = custom_header.value["value"]
@@ -138,26 +138,26 @@ resource "aws_cloudfront_distribution" "default" {
       }
 
       dynamic "custom_origin_config" {
-        for_each = lookup(origin.value, "custom_origin_config", null) == null ? [] : [true]
+        for_each = origin.value.custom_origin_config == null ? [] : [true]
         content {
-          http_port                = lookup(origin.value.custom_origin_config, "http_port", null)
-          https_port               = lookup(origin.value.custom_origin_config, "https_port", null)
-          origin_protocol_policy   = lookup(origin.value.custom_origin_config, "origin_protocol_policy", "https-only")
-          origin_ssl_protocols     = lookup(origin.value.custom_origin_config, "origin_ssl_protocols", ["TLSv1.2"])
-          origin_keepalive_timeout = lookup(origin.value.custom_origin_config, "origin_keepalive_timeout", 60)
-          origin_read_timeout      = lookup(origin.value.custom_origin_config, "origin_read_timeout", 60)
+          http_port                = origin.value.custom_origin_config.http_port
+          https_port               = origin.value.custom_origin_config.https_port
+          origin_protocol_policy   = origin.value.custom_origin_config.origin_protocol_policy
+          origin_ssl_protocols     = origin.value.custom_origin_config.origin_ssl_protocols
+          origin_keepalive_timeout = origin.value.custom_origin_config.origin_keepalive_timeout
+          origin_read_timeout      = origin.value.custom_origin_config.origin_read_timeout
         }
       }
 
       dynamic "s3_origin_config" {
-        for_each = lookup(origin.value, "s3_origin_config", null) == null ? [] : [true]
+        for_each = origin.value.s3_origin_config == null ? [] : [true]
         content {
-          origin_access_identity = lookup(origin.value.s3_origin_config, "origin_access_identity", null)
+          origin_access_identity = origin.value.s3_origin_config.origin_access_identity
         }
       }
 
       dynamic "origin_shield" {
-        for_each = lookup(origin.value, "origin_shield", null) != null ? [origin.value.origin_shield] : []
+        for_each = origin.value.origin_shield != null ? [origin.value.origin_shield] : []
         content {
           enabled              = origin_shield.value.enabled
           origin_shield_region = origin_shield.value.region
@@ -199,7 +199,7 @@ resource "aws_cloudfront_distribution" "default" {
 
         cookies {
           forward           = var.forward_cookies
-          whitelisted_names = var.forward_cookies_whitelisted_names
+          whitelisted_names = var.forward_cookies == "whitelist" ? var.forward_cookies_whitelisted_names : null
         }
       }
     }
@@ -210,7 +210,7 @@ resource "aws_cloudfront_distribution" "default" {
       for_each = var.lambda_function_association
       content {
         event_type   = lambda_function_association.value.event_type
-        include_body = lookup(lambda_function_association.value, "include_body", null)
+        include_body = lambda_function_association.value.include_body
         lambda_arn   = lambda_function_association.value.lambda_arn
       }
     }
@@ -260,7 +260,8 @@ resource "aws_cloudfront_distribution" "default" {
           headers      = ordered_cache_behavior.value.forward_header_values
 
           cookies {
-            forward = ordered_cache_behavior.value.forward_cookies
+            forward           = ordered_cache_behavior.value.forward_cookies
+            whitelisted_names = ordered_cache_behavior.value.forward_cookies == "whitelist" ? ordered_cache_behavior.value.forward_cookies_whitelisted_names : null
           }
         }
       }
@@ -275,13 +276,13 @@ resource "aws_cloudfront_distribution" "default" {
         for_each = ordered_cache_behavior.value.lambda_function_association
         content {
           event_type   = lambda_function_association.value.event_type
-          include_body = lookup(lambda_function_association.value, "include_body", null)
+          include_body = lambda_function_association.value.include_body
           lambda_arn   = lambda_function_association.value.lambda_arn
         }
       }
 
       dynamic "function_association" {
-        for_each = lookup(ordered_cache_behavior.value, "function_association", [])
+        for_each = ordered_cache_behavior.value.function_association
         content {
           event_type   = function_association.value.event_type
           function_arn = function_association.value.function_arn

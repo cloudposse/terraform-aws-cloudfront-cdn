@@ -26,10 +26,10 @@ variable "custom_error_response" {
   # http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/custom-error-pages.html#custom-error-pages-procedure
   # https://www.terraform.io/docs/providers/aws/r/cloudfront_distribution.html#custom-error-response-arguments
   type = list(object({
-    error_caching_min_ttl = string
+    error_caching_min_ttl = optional(string, null)
     error_code            = string
-    response_code         = string
-    response_page_path    = string
+    response_code         = optional(string, null)
+    response_page_path    = optional(string, null)
   }))
 
   description = "List of one or more custom error response element maps"
@@ -92,8 +92,8 @@ variable "origin_protocol_policy" {
 
 variable "origin_shield" {
   type = object({
-    enabled = bool
-    region  = string
+    enabled = optional(bool, false)
+    region  = optional(string, null)
   })
   description = "The CloudFront Origin Shield settings"
   default     = null
@@ -328,9 +328,10 @@ variable "ordered_cache" {
     default_ttl            = optional(number, 60)
     max_ttl                = optional(number, 31536000)
 
-    forward_query_string  = optional(bool, false)
-    forward_header_values = optional(list(string), [])
-    forward_cookies       = optional(string, "none")
+    forward_query_string              = optional(bool, false)
+    forward_header_values             = optional(list(string), [])
+    forward_cookies                   = optional(string, "none")
+    forward_cookies_whitelisted_names = optional(list(string), [])
 
     response_headers_policy_id = optional(string, "")
 
@@ -340,7 +341,7 @@ variable "ordered_cache" {
 
     lambda_function_association = optional(list(object({
       event_type   = string
-      include_body = bool
+      include_body = optional(bool, false)
       lambda_arn   = string
     })), [])
 
@@ -381,7 +382,7 @@ variable "custom_origins" {
     }), null)
     origin_shield = optional(object({
       enabled = optional(bool, false)
-      region  = optional(string, "")
+      region  = optional(string, null)
     }), null)
   }))
   default     = []
@@ -397,7 +398,7 @@ variable "trusted_signers" {
 variable "lambda_function_association" {
   type = list(object({
     event_type   = string
-    include_body = bool
+    include_body = optional(bool, false)
     lambda_arn   = string
   }))
 

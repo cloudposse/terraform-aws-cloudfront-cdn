@@ -2,8 +2,11 @@
 
 <!-- markdownlint-disable -->
 <a href="https://cpco.io/homepage"><img src="https://github.com/cloudposse/terraform-aws-cloudfront-cdn/blob/main/.github/banner.png?raw=true" alt="Project Banner"/></a><br/>
-    <p align="right">
-<a href="https://github.com/cloudposse/terraform-aws-cloudfront-cdn/releases/latest"><img src="https://img.shields.io/github/release/cloudposse/terraform-aws-cloudfront-cdn.svg?style=for-the-badge" alt="Latest Release"/></a><a href="https://github.com/cloudposse/terraform-aws-cloudfront-cdn/commits"><img src="https://img.shields.io/github/last-commit/cloudposse/terraform-aws-cloudfront-cdn.svg?style=for-the-badge" alt="Last Updated"/></a><a href="https://slack.cloudposse.com"><img src="https://slack.cloudposse.com/for-the-badge.svg" alt="Slack Community"/></a></p>
+
+
+<p align="right"><a href="https://github.com/cloudposse/terraform-aws-cloudfront-cdn/releases/latest"><img src="https://img.shields.io/github/release/cloudposse/terraform-aws-cloudfront-cdn.svg?style=for-the-badge" alt="Latest Release"/></a><a href="https://github.com/cloudposse/terraform-aws-cloudfront-cdn/commits"><img src="https://img.shields.io/github/last-commit/cloudposse/terraform-aws-cloudfront-cdn.svg?style=for-the-badge" alt="Last Updated"/></a><a href="https://cloudposse.com/slack"><img src="https://slack.cloudposse.com/for-the-badge.svg" alt="Slack Community"/></a><a href="https://cloudposse.com/support/"><img src="https://img.shields.io/badge/Get_Support-success.svg?style=for-the-badge" alt="Get Support"/></a>
+
+</p>
 <!-- markdownlint-restore -->
 
 <!--
@@ -93,18 +96,6 @@ aws acm request-certificate --domain-name example.com --subject-alternative-name
 
 
 <!-- markdownlint-disable -->
-## Makefile Targets
-```text
-Available targets:
-
-  help                                Help screen
-  help/all                            Display help for all targets
-  help/short                          This help short screen
-  lint                                Lint terraform code
-
-```
-<!-- markdownlint-restore -->
-<!-- markdownlint-disable -->
 ## Requirements
 
 | Name | Version |
@@ -151,7 +142,7 @@ Available targets:
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br/>See description of individual variables for details.<br/>Leave string and numeric variables as `null` to use default value.<br/>Individual variable settings (non-null) override settings in context object,<br/>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br/>  "additional_tag_map": {},<br/>  "attributes": [],<br/>  "delimiter": null,<br/>  "descriptor_formats": {},<br/>  "enabled": true,<br/>  "environment": null,<br/>  "id_length_limit": null,<br/>  "label_key_case": null,<br/>  "label_order": [],<br/>  "label_value_case": null,<br/>  "labels_as_tags": [<br/>    "unset"<br/>  ],<br/>  "name": null,<br/>  "namespace": null,<br/>  "regex_replace_chars": null,<br/>  "stage": null,<br/>  "tags": {},<br/>  "tenant": null<br/>}</pre> | no |
 | <a name="input_custom_error_response"></a> [custom\_error\_response](#input\_custom\_error\_response) | List of one or more custom error response element maps | <pre>list(object({<br/>    error_caching_min_ttl = optional(string, null)<br/>    error_code            = string<br/>    response_code         = optional(string, null)<br/>    response_page_path    = optional(string, null)<br/>  }))</pre> | `[]` | no |
 | <a name="input_custom_header"></a> [custom\_header](#input\_custom\_header) | List of one or more custom headers passed to the origin | <pre>list(object({<br/>    name  = string<br/>    value = string<br/>  }))</pre> | `[]` | no |
-| <a name="input_custom_origins"></a> [custom\_origins](#input\_custom\_origins) | One or more custom origins for this distribution (multiples allowed). See documentation for configuration options description https://www.terraform.io/docs/providers/aws/r/cloudfront_distribution.html#origin-arguments | <pre>list(object({<br/>    domain_name              = string<br/>    origin_id                = string<br/>    origin_path              = optional(string, "")<br/>    origin_access_control_id = optional(string, null)<br/>    custom_headers = optional(list(object({<br/>      name  = string<br/>      value = string<br/>    })), [])<br/>    custom_origin_config = optional(object({<br/>      http_port                = optional(number, 80)<br/>      https_port               = optional(number, 443)<br/>      origin_protocol_policy   = optional(string, "match-viewer")<br/>      origin_ssl_protocols     = optional(list(string), ["TLSv1", "TLSv1.1", "TLSv1.2"])<br/>      origin_keepalive_timeout = optional(number, 5)<br/>      origin_read_timeout      = optional(number, 30)<br/>    }), null)<br/>    s3_origin_config = optional(object({<br/>      origin_access_identity = string<br/>    }), null)<br/>    origin_shield = optional(object({<br/>      enabled = optional(bool, false)<br/>      region  = optional(string, "")<br/>    }), null)<br/>  }))</pre> | `[]` | no |
+| <a name="input_custom_origins"></a> [custom\_origins](#input\_custom\_origins) | One or more custom origins for this distribution (multiples allowed). See documentation for configuration options description https://www.terraform.io/docs/providers/aws/r/cloudfront_distribution.html#origin-arguments | <pre>list(object({<br/>    domain_name              = string<br/>    origin_id                = string<br/>    origin_path              = optional(string, "")<br/>    origin_access_control_id = optional(string, null)<br/>    custom_headers = optional(list(object({<br/>      name  = string<br/>      value = string<br/>    })), [])<br/>    custom_origin_config = optional(object({<br/>      http_port                = optional(number, 80)<br/>      https_port               = optional(number, 443)<br/>      origin_protocol_policy   = optional(string, "match-viewer")<br/>      origin_ssl_protocols     = optional(list(string), ["TLSv1", "TLSv1.1", "TLSv1.2"])<br/>      origin_keepalive_timeout = optional(number, 5)<br/>      origin_read_timeout      = optional(number, 30)<br/>    }), null)<br/>    s3_origin_config = optional(object({<br/>      origin_access_identity = string<br/>    }), null)<br/>    origin_shield = optional(object({<br/>      enabled = optional(bool, false)<br/>      region  = optional(string, null)<br/>    }), null)<br/>  }))</pre> | `[]` | no |
 | <a name="input_default_root_object"></a> [default\_root\_object](#input\_default\_root\_object) | Object that CloudFront return when requests the root URL | `string` | `"index.html"` | no |
 | <a name="input_default_ttl"></a> [default\_ttl](#input\_default\_ttl) | Default amount of time (in seconds) that an object is in a CloudFront cache | `number` | `60` | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br/>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
@@ -199,7 +190,7 @@ Available targets:
 | <a name="input_origin_protocol_policy"></a> [origin\_protocol\_policy](#input\_origin\_protocol\_policy) | The origin protocol policy to apply to your origin. One of http-only, https-only, or match-viewer | `string` | `"match-viewer"` | no |
 | <a name="input_origin_read_timeout"></a> [origin\_read\_timeout](#input\_origin\_read\_timeout) | The Custom Read timeout, in seconds. By default, AWS enforces a limit of 60. But you can request an increase. | `number` | `30` | no |
 | <a name="input_origin_request_policy_id"></a> [origin\_request\_policy\_id](#input\_origin\_request\_policy\_id) | ID of the origin request policy attached to the cache behavior | `string` | `null` | no |
-| <a name="input_origin_shield"></a> [origin\_shield](#input\_origin\_shield) | The CloudFront Origin Shield settings | <pre>object({<br/>    enabled = optional(bool, false)<br/>    region  = optional(string, "")<br/>  })</pre> | `null` | no |
+| <a name="input_origin_shield"></a> [origin\_shield](#input\_origin\_shield) | The CloudFront Origin Shield settings | <pre>object({<br/>    enabled = optional(bool, false)<br/>    region  = optional(string, null)<br/>  })</pre> | `null` | no |
 | <a name="input_origin_ssl_protocols"></a> [origin\_ssl\_protocols](#input\_origin\_ssl\_protocols) | The SSL/TLS protocols that you want CloudFront to use when communicating with your origin over HTTPS | `list(string)` | <pre>[<br/>  "TLSv1",<br/>  "TLSv1.1",<br/>  "TLSv1.2"<br/>]</pre> | no |
 | <a name="input_origin_type"></a> [origin\_type](#input\_origin\_type) | The type of origin configuration to use. Valid values are 'custom' or 's3'. | `string` | `"custom"` | no |
 | <a name="input_parent_zone_id"></a> [parent\_zone\_id](#input\_parent\_zone\_id) | ID of the hosted zone to contain this record (or specify `parent_zone_name`) | `string` | `""` | no |
@@ -231,6 +222,11 @@ Available targets:
 | <a name="output_cf_status"></a> [cf\_status](#output\_cf\_status) | Current status of the distribution |
 | <a name="output_logs"></a> [logs](#output\_logs) | Logs resource |
 <!-- markdownlint-restore -->
+
+
+
+
+
 
 
 ## Related Projects
@@ -306,7 +302,36 @@ In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
  5. **Push** your work back up to your fork
  6. Submit a **Pull Request** so that we can review your changes
 
-**NOTE:** Be sure to merge the latest changes from "upstream" before making a pull request!
+**NOTE:** Be sure to merge the latest changes from "upstream" before making a pull request!## Running Terraform Tests
+
+We use [Atmos](https://atmos.tools) to streamline how Terraform tests are run. It centralizes configuration and wraps common test workflows with easy-to-use commands.
+
+All tests are located in the [`test/`](test) folder.
+
+Under the hood, tests are powered by Terratest together with our internal [Test Helpers](https://github.com/cloudposse/test-helpers) library, providing robust infrastructure validation.
+
+Setup dependencies:
+- Install Atmos ([installation guide](https://atmos.tools/install/))
+- Install Go [1.24+ or newer](https://go.dev/doc/install)
+- Install Terraform or OpenTofu
+
+To run tests:
+
+- Run all tests:  
+  ```sh
+  atmos test run
+  ```
+- Clean up test artifacts:  
+  ```sh
+  atmos test clean
+  ```
+- Explore additional test options:  
+  ```sh
+  atmos test --help
+  ```
+The configuration for test commands is centrally managed. To review what's being imported, see the [`atmos.yaml`](https://raw.githubusercontent.com/cloudposse/.github/refs/heads/main/.github/atmos/terraform-module.yaml) file.
+
+Learn more about our [automated testing in our documentation](https://docs.cloudposse.com/community/contribute/automated-testing/) or implementing [custom commands](https://atmos.tools/core-concepts/custom-commands/) with atmos.
 
 ### 🌎 Slack Community
 

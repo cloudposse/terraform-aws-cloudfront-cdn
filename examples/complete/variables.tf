@@ -104,12 +104,6 @@ variable "default_root_object" {
   description = "Object that CloudFront return when requests the root URL"
 }
 
-variable "logging_enabled" {
-  type        = bool
-  default     = true
-  description = "When true, access logs will be sent to a newly created S3 bucket or bucket specified by log_bucket_fqdn"
-}
-
 variable "log_include_cookies" {
   default     = "false"
   description = "Include cookies in access logs"

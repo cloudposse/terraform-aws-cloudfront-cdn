@@ -106,7 +106,7 @@ variable "default_root_object" {
 
 variable "comment" {
   default     = "Managed by Terraform"
-  description = "Comment for the origin access identity"
+  description = "Comment/description of the CloudFront distribution."
 }
 
 variable "logging_enabled" {

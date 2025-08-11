@@ -104,11 +104,6 @@ variable "default_root_object" {
   description = "Object that CloudFront return when requests the root URL"
 }
 
-variable "comment" {
-  default     = "Managed by Terraform"
-  description = "Comment/description of the CloudFront distribution."
-}
-
 variable "logging_enabled" {
   type        = bool
   default     = true

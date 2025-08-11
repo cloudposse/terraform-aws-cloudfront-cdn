@@ -104,11 +104,6 @@ variable "default_root_object" {
   description = "Object that CloudFront return when requests the root URL"
 }
 
-variable "log_include_cookies" {
-  default     = "false"
-  description = "Include cookies in access logs"
-}
-
 variable "log_prefix" {
   default     = ""
   description = "Path of logs in S3 bucket"

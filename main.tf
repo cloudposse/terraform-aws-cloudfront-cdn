@@ -75,10 +75,11 @@ resource "aws_cloudfront_distribution" "default" {
   }
 
   origin {
-    domain_name              = var.origin_domain_name
-    origin_id                = module.this.id
-    origin_path              = var.origin_path
-    origin_access_control_id = var.origin_type == "s3" ? var.origin_access_control_id : null
+    domain_name                 = var.origin_domain_name
+    origin_id                   = module.this.id
+    origin_path                 = var.origin_path
+    origin_access_control_id    = var.origin_type == "s3" ? var.origin_access_control_id : null
+    response_completion_timeout = var.response_completion_timeout
 
     dynamic "custom_origin_config" {
       for_each = var.origin_type == "custom" ? [1] : []
@@ -124,10 +125,11 @@ resource "aws_cloudfront_distribution" "default" {
   dynamic "origin" {
     for_each = var.custom_origins
     content {
-      domain_name              = origin.value.domain_name
-      origin_id                = origin.value.origin_id
-      origin_path              = origin.value.origin_path
-      origin_access_control_id = origin.value.origin_access_control_id
+      domain_name                 = origin.value.domain_name
+      origin_id                   = origin.value.origin_id
+      origin_path                 = origin.value.origin_path
+      origin_access_control_id    = origin.value.origin_access_control_id
+      response_completion_timeout = origin.value.response_completion_timeout
 
       dynamic "custom_header" {
         for_each = origin.value.custom_headers

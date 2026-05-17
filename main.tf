@@ -307,6 +307,18 @@ resource "aws_cloudfront_distribution" "default" {
   depends_on = [module.logs]
 }
 
+resource "aws_cloudfront_monitoring_subscription" "default" {
+  count = module.this.enabled && var.additional_metrics_enabled ? 1 : 0
+
+  distribution_id = aws_cloudfront_distribution.default[0].id
+
+  monitoring_subscription {
+    realtime_metrics_subscription_config {
+      realtime_metrics_subscription_status = "Enabled"
+    }
+  }
+}
+
 module "dns" {
   source  = "cloudposse/route53-alias/aws"
   version = "0.13.0"

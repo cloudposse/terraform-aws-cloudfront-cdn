@@ -99,7 +99,7 @@ aws acm request-certificate --domain-name example.com --subject-alternative-name
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.13.0 |
 | <a name="requirement_local"></a> [local](#requirement\_local) | >= 1.2 |
@@ -107,13 +107,13 @@ aws acm request-certificate --domain-name example.com --subject-alternative-name
 ## Providers
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.13.0 |
 
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_dns"></a> [dns](#module\_dns) | cloudposse/route53-alias/aws | 0.13.0 |
 | <a name="module_logs"></a> [logs](#module\_logs) | cloudposse/s3-log-storage/aws | 1.4.4 |
 | <a name="module_origin_label"></a> [origin\_label](#module\_origin\_label) | cloudposse/label/null | 0.25.0 |
@@ -122,15 +122,17 @@ aws acm request-certificate --domain-name example.com --subject-alternative-name
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_cloudfront_distribution.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution) | resource |
+| [aws_cloudfront_monitoring_subscription.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_monitoring_subscription) | resource |
 | [aws_cloudfront_origin_access_identity.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_origin_access_identity) | resource |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_acm_certificate_arn"></a> [acm\_certificate\_arn](#input\_acm\_certificate\_arn) | Existing ACM Certificate ARN | `string` | `""` | no |
+| <a name="input_additional_metrics_enabled"></a> [additional\_metrics\_enabled](#input\_additional\_metrics\_enabled) | When set to `true`, enables additional CloudFront real-time metrics (4xx/5xx error rates by HTTP status code, origin latency, and cache hit rate) via a monitoring subscription. | `bool` | `false` | no |
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br/>This is for some rare cases where resources want additional configuration of tags<br/>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
 | <a name="input_aliases"></a> [aliases](#input\_aliases) | List of aliases. CAUTION! Names MUSTN'T contain trailing `.` | `list(string)` | `[]` | no |
 | <a name="input_allowed_methods"></a> [allowed\_methods](#input\_allowed\_methods) | List of allowed methods (e.g. ` GET, PUT, POST, DELETE, HEAD`) for AWS CloudFront | `list(string)` | <pre>[<br/>  "DELETE",<br/>  "GET",<br/>  "HEAD",<br/>  "OPTIONS",<br/>  "PATCH",<br/>  "POST",<br/>  "PUT"<br/>]</pre> | no |
@@ -212,7 +214,7 @@ aws acm request-certificate --domain-name example.com --subject-alternative-name
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_cf_aliases"></a> [cf\_aliases](#output\_cf\_aliases) | Extra CNAMEs of AWS CloudFront |
 | <a name="output_cf_arn"></a> [cf\_arn](#output\_cf\_arn) | ARN of CloudFront distribution |
 | <a name="output_cf_domain_name"></a> [cf\_domain\_name](#output\_cf\_domain\_name) | Domain name corresponding to the distribution |

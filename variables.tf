@@ -470,3 +470,20 @@ variable "additional_metrics_enabled" {
   default     = false
   description = "When set to `true`, enables additional CloudFront real-time metrics (4xx/5xx error rates by HTTP status code, origin latency, and cache hit rate) via a monitoring subscription."
 }
+
+variable "viewer_mtls_config" {
+  description = "Configuration for mutual TLS (mTLS) authentication on the CloudFront distribution. The trust store (`aws_cloudfront_trust_store`) should be managed outside this module, as it is commonly shared across multiple distributions."
+  type = object({
+    mode                           = string
+    trust_store_id                 = string
+    advertise_trust_store_ca_names = optional(bool, false)
+    ignore_certificate_expiry      = optional(bool, false)
+  })
+  default = null
+}
+
+variable "connection_function_id" {
+  description = "ID of a CloudFront connection function to associate with the distribution. The connection function (`aws_cloudfront_connection_function`) should be managed outside this module."
+  type        = string
+  default     = null
+}

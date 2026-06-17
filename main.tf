@@ -175,6 +175,26 @@ resource "aws_cloudfront_distribution" "default" {
     cloudfront_default_certificate = var.acm_certificate_arn == "" ? true : false
   }
 
+  dynamic "viewer_mtls_config" {
+    for_each = var.viewer_mtls_config != null ? [var.viewer_mtls_config] : []
+    content {
+      mode = viewer_mtls_config.value.mode
+
+      trust_store_config {
+        trust_store_id                 = viewer_mtls_config.value.trust_store_id
+        advertise_trust_store_ca_names = viewer_mtls_config.value.advertise_trust_store_ca_names
+        ignore_certificate_expiry      = viewer_mtls_config.value.ignore_certificate_expiry
+      }
+    }
+  }
+
+  dynamic "connection_function_association" {
+    for_each = var.connection_function_id != null ? [var.connection_function_id] : []
+    content {
+      id = connection_function_association.value
+    }
+  }
+
   default_cache_behavior {
     allowed_methods            = var.allowed_methods
     cached_methods             = var.cached_methods

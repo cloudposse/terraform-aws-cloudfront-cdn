@@ -211,7 +211,7 @@ aws acm request-certificate --domain-name example.com --subject-alternative-name
 | <a name="input_viewer_minimum_protocol_version"></a> [viewer\_minimum\_protocol\_version](#input\_viewer\_minimum\_protocol\_version) | The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections. This is ignored if the default CloudFront certificate is used. | `string` | `"TLSv1.2_2021"` | no |
 | <a name="input_viewer_mtls_config"></a> [viewer\_mtls\_config](#input\_viewer\_mtls\_config) | Configuration for mutual TLS (mTLS) authentication on the CloudFront distribution. The trust store (`aws_cloudfront_trust_store`) should be managed outside this module, as it is commonly shared across multiple distributions. | <pre>object({<br/>    mode                           = string<br/>    trust_store_id                 = string<br/>    advertise_trust_store_ca_names = optional(bool, false)<br/>    ignore_certificate_expiry      = optional(bool, false)<br/>  })</pre> | `null` | no |
 | <a name="input_viewer_protocol_policy"></a> [viewer\_protocol\_policy](#input\_viewer\_protocol\_policy) | allow-all, redirect-to-https | `string` | `"redirect-to-https"` | no |
-| <a name="input_web_acl_id"></a> [web\_acl\_id](#input\_web\_acl\_id) | ID of the AWS WAF web ACL that is associated with the distribution | `string` | `""` | no |
+| <a name="input_web_acl_id"></a> [web\_acl\_id](#input\_web\_acl\_id) | ID or ARN of the AWS WAF web ACL that is associated with the distribution. NOTE: If using the latest version of WAF (WAFv2), be sure to use the ARN. If using WAF Classic, use the ID. https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#web_acl_id-3 | `string` | `""` | no |
 
 ## Outputs
 
@@ -326,15 +326,15 @@ Setup dependencies:
 
 To run tests:
 
-- Run all tests:  
+- Run all tests:
   ```sh
   atmos test run
   ```
-- Clean up test artifacts:  
+- Clean up test artifacts:
   ```sh
   atmos test clean
   ```
-- Explore additional test options:  
+- Explore additional test options:
   ```sh
   atmos test --help
   ```

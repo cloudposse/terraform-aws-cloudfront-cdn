@@ -15,7 +15,7 @@ resource "aws_cloudfront_origin_access_identity" "default" {
 
 module "logs" {
   source  = "cloudposse/s3-log-storage/aws"
-  version = "1.4.4"
+  version = "2.0.0"
 
   enabled                  = module.this.enabled && var.logging_enabled && length(var.log_bucket_fqdn) == 0
   attributes               = compact(concat(module.this.attributes, ["origin", "logs"]))
@@ -75,10 +75,11 @@ resource "aws_cloudfront_distribution" "default" {
   }
 
   origin {
-    domain_name              = var.origin_domain_name
-    origin_id                = module.this.id
-    origin_path              = var.origin_path
-    origin_access_control_id = var.origin_type == "s3" ? var.origin_access_control_id : null
+    domain_name                 = var.origin_domain_name
+    origin_id                   = module.this.id
+    origin_path                 = var.origin_path
+    origin_access_control_id    = var.origin_type == "s3" ? var.origin_access_control_id : null
+    response_completion_timeout = var.response_completion_timeout
 
     dynamic "custom_origin_config" {
       for_each = var.origin_type == "custom" ? [1] : []
@@ -124,10 +125,11 @@ resource "aws_cloudfront_distribution" "default" {
   dynamic "origin" {
     for_each = var.custom_origins
     content {
-      domain_name              = origin.value.domain_name
-      origin_id                = origin.value.origin_id
-      origin_path              = origin.value.origin_path
-      origin_access_control_id = origin.value.origin_access_control_id
+      domain_name                 = origin.value.domain_name
+      origin_id                   = origin.value.origin_id
+      origin_path                 = origin.value.origin_path
+      origin_access_control_id    = origin.value.origin_access_control_id
+      response_completion_timeout = origin.value.response_completion_timeout
 
       dynamic "custom_header" {
         for_each = origin.value.custom_headers
@@ -171,6 +173,26 @@ resource "aws_cloudfront_distribution" "default" {
     ssl_support_method             = var.acm_certificate_arn == "" ? null : "sni-only"
     minimum_protocol_version       = length(var.aliases) == 0 ? "TLSv1" : var.viewer_minimum_protocol_version
     cloudfront_default_certificate = var.acm_certificate_arn == "" ? true : false
+  }
+
+  dynamic "viewer_mtls_config" {
+    for_each = var.viewer_mtls_config != null ? [var.viewer_mtls_config] : []
+    content {
+      mode = viewer_mtls_config.value.mode
+
+      trust_store_config {
+        trust_store_id                 = viewer_mtls_config.value.trust_store_id
+        advertise_trust_store_ca_names = viewer_mtls_config.value.advertise_trust_store_ca_names
+        ignore_certificate_expiry      = viewer_mtls_config.value.ignore_certificate_expiry
+      }
+    }
+  }
+
+  dynamic "connection_function_association" {
+    for_each = var.connection_function_id != null ? [var.connection_function_id] : []
+    content {
+      id = connection_function_association.value
+    }
   }
 
   default_cache_behavior {
@@ -303,6 +325,18 @@ resource "aws_cloudfront_distribution" "default" {
   tags = module.this.tags
 
   depends_on = [module.logs]
+}
+
+resource "aws_cloudfront_monitoring_subscription" "default" {
+  count = module.this.enabled && var.additional_metrics_enabled ? 1 : 0
+
+  distribution_id = aws_cloudfront_distribution.default[0].id
+
+  monitoring_subscription {
+    realtime_metrics_subscription_config {
+      realtime_metrics_subscription_status = "Enabled"
+    }
+  }
 }
 
 module "dns" {

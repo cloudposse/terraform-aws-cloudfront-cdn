@@ -105,6 +105,16 @@ resource "aws_cloudfront_distribution" "default" {
       }
     }
 
+    dynamic "vpc_origin_config" {
+      for_each = var.origin_type == "vpc" ? [var.vpc_origin_config] : []
+      content {
+        vpc_origin_id            = vpc_origin_config.value.vpc_origin_id
+        origin_keepalive_timeout = vpc_origin_config.value.origin_keepalive_timeout
+        origin_read_timeout      = vpc_origin_config.value.origin_read_timeout
+        owner_account_id         = vpc_origin_config.value.owner_account_id
+      }
+    }
+
     dynamic "origin_shield" {
       for_each = var.origin_shield != null ? ["true"] : []
       content {
@@ -155,6 +165,16 @@ resource "aws_cloudfront_distribution" "default" {
         for_each = origin.value.s3_origin_config == null ? [] : [true]
         content {
           origin_access_identity = origin.value.s3_origin_config.origin_access_identity
+        }
+      }
+
+      dynamic "vpc_origin_config" {
+        for_each = origin.value.vpc_origin_config == null ? [] : [true]
+        content {
+          vpc_origin_id            = origin.value.vpc_origin_config.vpc_origin_id
+          origin_keepalive_timeout = origin.value.vpc_origin_config.origin_keepalive_timeout
+          origin_read_timeout      = origin.value.vpc_origin_config.origin_read_timeout
+          owner_account_id         = origin.value.vpc_origin_config.owner_account_id
         }
       }
 

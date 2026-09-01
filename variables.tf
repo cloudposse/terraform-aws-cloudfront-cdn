@@ -387,6 +387,12 @@ variable "custom_origins" {
     s3_origin_config = optional(object({
       origin_access_identity = string
     }), null)
+    vpc_origin_config = optional(object({
+      vpc_origin_id            = string
+      origin_keepalive_timeout = optional(number, 5)
+      origin_read_timeout      = optional(number, 30)
+      owner_account_id         = optional(string, null)
+    }), null)
     origin_shield = optional(object({
       enabled = optional(bool, false)
       region  = optional(string, null)
@@ -449,12 +455,23 @@ variable "grpc_config" {
 
 variable "origin_type" {
   type        = string
-  description = "The type of origin configuration to use. Valid values are 'custom' or 's3'."
+  description = "The type of origin configuration to use. Valid values are 'custom', 's3', or 'vpc'."
   default     = "custom"
   validation {
-    condition     = contains(["custom", "s3"], var.origin_type)
-    error_message = "Valid values for origin_type are 'custom' or 's3'."
+    condition     = contains(["custom", "s3", "vpc"], var.origin_type)
+    error_message = "Valid values for origin_type are 'custom', 's3', or 'vpc'."
   }
+}
+
+variable "vpc_origin_config" {
+  description = "Configuration for a CloudFront VPC origin, used when `origin_type` is set to `vpc`. The VPC origin (`aws_cloudfront_vpc_origin`) should be managed outside this module."
+  type = object({
+    vpc_origin_id            = string
+    origin_keepalive_timeout = optional(number, 5)
+    origin_read_timeout      = optional(number, 30)
+    owner_account_id         = optional(string, null)
+  })
+  default = null
 }
 
 variable "s3_origin_config" {

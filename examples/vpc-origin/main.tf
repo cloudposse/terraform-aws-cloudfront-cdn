@@ -21,12 +21,13 @@ resource "aws_security_group" "alb" {
   name_prefix = "${module.this.id}-"
   vpc_id      = data.aws_vpc.default.id
 
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+  tags = module.this.tags
+}
+
+resource "aws_vpc_security_group_egress_rule" "alb_all_outbound" {
+  security_group_id = aws_security_group.alb.id
+  ip_protocol       = "-1"
+  cidr_ipv4         = "0.0.0.0/0"
 
   tags = module.this.tags
 }
@@ -42,13 +43,14 @@ data "aws_security_group" "cloudfront_vpc_origins" {
   depends_on = [aws_cloudfront_vpc_origin.this]
 }
 
-resource "aws_security_group_rule" "alb_from_cloudfront_vpc_origins" {
-  type                     = "ingress"
-  from_port                = 80
-  to_port                  = 80
-  protocol                 = "tcp"
-  security_group_id        = aws_security_group.alb.id
-  source_security_group_id = data.aws_security_group.cloudfront_vpc_origins.id
+resource "aws_vpc_security_group_ingress_rule" "alb_from_cloudfront_vpc_origins" {
+  security_group_id            = aws_security_group.alb.id
+  from_port                    = 80
+  to_port                      = 80
+  ip_protocol                  = "tcp"
+  referenced_security_group_id = data.aws_security_group.cloudfront_vpc_origins.id
+
+  tags = module.this.tags
 }
 
 resource "aws_lb" "internal" {

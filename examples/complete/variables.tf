@@ -272,3 +272,13 @@ variable "http_version" {
   default     = "http2"
   description = "The maximum HTTP version to support on the distribution. Allowed values are http1.1, http2, http2and3 and http3."
 }
+
+variable "availability_zones" {
+  type        = list(string)
+  description = "List of availability zones for the VPC subnets"
+}
+
+variable "vpc_cidr_block" {
+  type        = string
+  description = "CIDR block of the dedicated VPC that hosts the internal ALB used as the CloudFront VPC origin"
+}

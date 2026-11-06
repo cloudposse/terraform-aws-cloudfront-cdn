@@ -37,3 +37,18 @@ output "cf_origin_access_identity" {
   value       = module.cdn.cf_origin_access_identity
   description = "A shortcut to the full path for the origin access identity to use in CloudFront"
 }
+
+output "vpc_origin_id" {
+  value       = aws_cloudfront_vpc_origin.this.id
+  description = "ID of the CloudFront VPC origin"
+}
+
+output "vpc_origin_cf_id" {
+  value       = module.cdn_vpc_origin.cf_id
+  description = "ID of the CloudFront distribution backed by the VPC origin"
+}
+
+output "vpc_origin_cf_domain_name" {
+  value       = module.cdn_vpc_origin.cf_domain_name
+  description = "Domain name of the CloudFront distribution backed by the VPC origin"
+}

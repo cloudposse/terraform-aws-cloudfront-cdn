@@ -54,4 +54,11 @@ func TestExamplesComplete(t *testing.T) {
 	cfArn := terraform.Output(t, terraformOptions, "cf_arn")
 	// Verify we're getting back the outputs we expect
 	assert.Contains(t, cfArn, "arn:aws:cloudfront::")
+
+	// Verify the distribution backed by the CloudFront VPC origin
+	vpcOriginID := terraform.Output(t, terraformOptions, "vpc_origin_id")
+	assert.NotEmpty(t, vpcOriginID)
+
+	vpcOriginCfDomainName := terraform.Output(t, terraformOptions, "vpc_origin_cf_domain_name")
+	assert.Contains(t, vpcOriginCfDomainName, ".cloudfront.net")
 }
